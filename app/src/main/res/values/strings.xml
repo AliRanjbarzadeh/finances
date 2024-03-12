@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">امور مالی</string>
+    <string name="home_menu">خانه</string>
+    <string name="profile_menu">پروفایل</string>
+    <string name="setting_menu">تنظیمات</string>
+    <string name="under_construction">در دست ساخت</string>
+    <string name="add_transaction">تراکنش جدید</string>
+    <string name="nothing_found">موردی یافت نشد</string>
+    <string name="add_card">افزودن کارت</string>
+    <string name="cards">کارت ها</string>
+    <string name="need_card_description">برای شروع نیاز به ثبت کارت بانکی دارید، لطفا یک کارت ایجاد کرده و سپس تراکنش های خود را ثبت کنید.</string>
+    <string name="select_bank">انتخاب بانک</string>
+    <string name="card_name">نام کارت بانکی</string>
+    <string name="card_current_balance">موجودی فعلی (تومان)</string>
+    <string name="store">ذخیره</string>
+    <string name="select_bank_error">لطفا بانک را انتخاب کنید</string>
+    <string name="card_name_error">لطفا نام کارت بانکی را وارد کنید</string>
+    <string name="card_current_balance_error">لطفا موجودی فعلی را وارد کنید</string>
+    <string name="store_error">خطایی در ذخیره کردن رخ داده است، لطفا دوباره تلاش کنید</string>
+    <string name="store_success">با موفقیت ذخیره شد</string>
+    <string name="default_balance_value">0</string>
+</resources>

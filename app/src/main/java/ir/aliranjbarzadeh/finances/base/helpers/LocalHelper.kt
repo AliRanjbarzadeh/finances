@@ -1,0 +1,30 @@
+package ir.aliranjbarzadeh.finances.base.helpers
+
+import android.content.Context
+import android.content.res.Configuration
+import ir.aliranjbarzadeh.finances.base.Configs
+import ir.aliranjbarzadeh.finances.base.extensions.saveToSp
+import java.util.Locale
+
+
+object LocalHelper {
+	fun onAttach(context: Context, language: String): Context {
+		return setLocale(context, language)
+	}
+
+	fun setLocale(context: Context, language: String): Context {
+		saveToSp(Configs.Sessions.language, language)
+		return updateResources(context, language)
+	}
+
+	private fun updateResources(context: Context, language: String): Context {
+		val locale = Locale(language)
+		Locale.setDefault(locale)
+
+		val configuration: Configuration = context.resources.configuration
+		configuration.setLocale(locale)
+		configuration.setLayoutDirection(locale)
+
+		return context.createConfigurationContext(configuration)
+	}
+}

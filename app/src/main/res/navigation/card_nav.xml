@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_nav"
+    app:startDestination="@id/listCardFragment">
+    <fragment
+        android:id="@+id/listCardFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.profile.card.CardListFragment"
+        android:label="ListCardFragment"
+        tools:layout="@layout/fragment_card_list">
+        <action
+            android:id="@+id/card_list_to_add_card"
+            app:destination="@id/cardAddFragment" />
+        <argument
+            android:name="go_to_add_card"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cardAddFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.profile.card.CardAddFragment"
+        android:label="CardAddFragment"
+        tools:layout="@layout/fragment_card_add">
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="arfinances:://card/add" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Finances</string>
+    <string name="home_menu">Home</string>
+    <string name="profile_menu">Profile</string>
+    <string name="setting_menu">Setting</string>
+    <string name="under_construction">Under construction</string>
+    <string name="add_transaction">New transaction</string>
+    <string name="nothing_found">Nothing found</string>
+    <string name="add_card">Add card</string>
+    <string name="cards">Cards</string>
+    <string name="need_card_description">You need to add credit card to add transactions, please create a credit card and continue to add transactions.</string>
+    <string name="select_bank">Select Bank</string>
+    <string name="card_name">Credit Card Name</string>
+    <string name="card_current_balance">Current Balance</string>
+    <string name="store_error">Something went wrong during store item, please try again</string>
+    <string name="store">Save</string>
+    <string name="select_bank_error">Please select a bank</string>
+    <string name="card_name_error">Please enter credit card name</string>
+    <string name="card_current_balance_error">Please enter current cash of credit card</string>
+    <string name="store_success">Stored successfully</string>
+    <string name="default_balance_value">0</string>
+</resources>

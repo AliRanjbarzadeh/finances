@@ -1,0 +1,30 @@
+package ir.aliranjbarzadeh.finances.base
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import ir.aliranjbarzadeh.finances.base.dispatchers.DispatchersProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
+
+abstract class BaseViewModel(private val dispatchers: DispatchersProvider) : ViewModel(), CoroutineScope {
+	var isFirstRun: Boolean = true
+	open protected val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+	open protected val _isEmptyList: MutableLiveData<Boolean> = MutableLiveData()
+	protected val _error: MutableLiveData<Int> = MutableLiveData()
+
+	override val coroutineContext: CoroutineContext
+		get() = dispatchers.getMain() + SupervisorJob()
+
+	fun execute(job: suspend () -> Unit) = launch {
+		withContext(dispatchers.getIO()) { job.invoke() }
+	}
+
+	open fun isLoading(): MutableLiveData<Boolean> = _isLoading
+
+	open fun isEmptyList(): MutableLiveData<Boolean> = _isEmptyList
+
+	fun error(): MutableLiveData<Int> = _error
+}
