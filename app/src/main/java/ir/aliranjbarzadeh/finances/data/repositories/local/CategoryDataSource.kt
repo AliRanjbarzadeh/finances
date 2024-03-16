@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class CategoryDataSource @Inject constructor(private val dao: CategoryDao, private val logger: Logger) : CategoryDataSource {
 	override suspend fun initializeData() {
-		val categoriesOutcome = listOf(
+		val categoriesWithdraw = listOf(
 			"خوردنی",
 			"خریدنی",
 			"رفت و آمد",
@@ -29,7 +29,7 @@ class CategoryDataSource @Inject constructor(private val dao: CategoryDao, priva
 			"سایر",
 		)
 
-		val categoriesIncome = listOf(
+		val categoriesDeposit = listOf(
 			"حقوق",
 			"پاداش",
 			"عیدی",
@@ -39,27 +39,27 @@ class CategoryDataSource @Inject constructor(private val dao: CategoryDao, priva
 
 		logger.debug("Category seeder started", "CATEGORY_SEEDER")
 
-		val currentCategories = dao.list()
+		val currentCategories = dao.all()
 		val currentTime = Date()
-		categoriesOutcome.forEach { categoryName ->
-			val currentCategory = currentCategories.filter { it.type == "outcome" }.find { it.name == categoryName }
+		categoriesWithdraw.forEach { categoryName ->
+			val currentCategory = currentCategories.filter { it.type == "withdraw" }.find { it.name == categoryName }
 			if (currentCategory == null) {
-				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = "outcome", isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
+				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = "withdraw", isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
 			}
 		}
 
-		categoriesIncome.forEach { categoryName ->
-			val currentCategory = currentCategories.filter { it.type == "income" }.find { it.name == categoryName }
+		categoriesDeposit.forEach { categoryName ->
+			val currentCategory = currentCategories.filter { it.type == "deposit" }.find { it.name == categoryName }
 			if (currentCategory == null) {
-				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = "income", isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
+				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = "deposit", isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
 			}
 		}
 
 		logger.debug("Category seeder done", "CATEGORY_SEEDER")
 	}
 
-	override suspend fun list(): List<Category> {
-		val items = dao.list();
+	override suspend fun list(type: String): List<Category> {
+		val items = dao.list(type)
 		return items.map { it.toDomain() }
 	}
 

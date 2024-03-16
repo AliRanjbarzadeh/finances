@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
 	id("com.android.application")
 	id("org.jetbrains.kotlin.android")
@@ -7,7 +10,24 @@ plugins {
 	id("org.jetbrains.kotlin.kapt")
 }
 
+// keystore.properties file, in the rootProject folder.
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+val keystoreProperties = Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
 android {
+	signingConfigs {
+		create("release") {
+			storeFile = file(keystoreProperties["storeFile"] as String)
+			storePassword = keystoreProperties["storePassword"] as String
+			keyPassword = keystoreProperties["keyPassword"] as String
+			keyAlias = keystoreProperties["keyAlias"] as String
+		}
+	}
 	namespace = "ir.aliranjbarzadeh.finances"
 	compileSdk = 34
 
@@ -29,6 +49,7 @@ android {
 		release {
 			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+			signingConfig = signingConfigs.getByName("release")
 		}
 	}
 	compileOptions {
@@ -59,11 +80,11 @@ dependencies {
 	// Network
 	implementation("com.squareup.retrofit2:retrofit:2.9.0")
 	implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-	implementation("com.squareup.okhttp3:okhttp:4.10.0")
+	implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 	// Coroutines
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 	implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
 	// Multidex
@@ -74,8 +95,8 @@ dependencies {
 	implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
 	// Hilt
-	implementation("com.google.dagger:hilt-android:2.49")
-	kapt("com.google.dagger:hilt-android-compiler:2.49")
+	implementation("com.google.dagger:hilt-android:2.51")
+	kapt("com.google.dagger:hilt-android-compiler:2.51")
 
 	// Calligraphy
 	implementation("io.github.inflationx:calligraphy3:3.1.1")
@@ -89,12 +110,13 @@ dependencies {
 	implementation("com.intuit.sdp:sdp-android:1.1.0")
 
 	// Lottie
-	implementation("com.airbnb.android:lottie:5.2.0")
+	implementation("com.airbnb.android:lottie:6.4.0")
 
 	// Additional
 	implementation("com.github.samanzamani:PersianDate:1.7.1")
 	implementation("io.github.ParkSangGwon:tedkeyboardobserver:1.0.1")
 	implementation("androidx.core:core-splashscreen:1.0.1")
+	implementation("com.github.samanzamani:PersianDate:1.7.1")
 
 	testImplementation("junit:junit:4.13.2")
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")

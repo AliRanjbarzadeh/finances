@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="ir.aliranjbarzadeh.finances.data.models.Transaction" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/md_theme_surfaceContainerLowest"
+        app:cardCornerRadius="0dp"
+        app:cardUseCompatPadding="false"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/v_type"
+                android:layout_width="@dimen/_3sdp"
+                android:layout_height="0dp"
+                android:background="@color/deposit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/t_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@{item.category.name, default=`@string/select_category`}"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintEnd_toStartOf="@id/t_price"
+                app:layout_constraintStart_toEndOf="@id/v_type"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/t_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="@{item.dateFormatted, default=`@string/sample_date_time`}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/text_muted"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@id/t_category"
+                app:layout_constraintStart_toStartOf="@id/t_category"
+                app:layout_constraintTop_toBottomOf="@id/t_category" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/t_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@string/sample_price"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/t_category"
+                app:layout_constraintTop_toTopOf="@id/t_category" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/t_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@{item.card.name, default=`@string/sample_card`}"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/text_muted"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@id/t_price"
+                app:layout_constraintStart_toStartOf="@id/t_price"
+                app:layout_constraintTop_toBottomOf="@id/t_price" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:gravity="start"
+                android:text="@{item.description}"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/t_price"
+                app:layout_constraintStart_toStartOf="@id/t_category"
+                app:layout_constraintTop_toBottomOf="@id/t_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

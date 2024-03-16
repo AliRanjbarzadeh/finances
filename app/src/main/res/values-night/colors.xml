@@ -140,4 +140,5 @@
     <color name="md_theme_surfaceContainer_highContrast">#1B2122</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#252B2C</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#303637</color>
+    <color name="text_muted">#5E949C</color>
 </resources>

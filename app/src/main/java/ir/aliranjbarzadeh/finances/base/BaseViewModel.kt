@@ -12,6 +12,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseViewModel(private val dispatchers: DispatchersProvider) : ViewModel(), CoroutineScope {
 	var isFirstRun: Boolean = true
 	open protected val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+	open protected val _store: MutableLiveData<Long> = MutableLiveData()
 	open protected val _isEmptyList: MutableLiveData<Boolean> = MutableLiveData()
 	protected val _error: MutableLiveData<Int> = MutableLiveData()
 
@@ -24,7 +25,10 @@ abstract class BaseViewModel(private val dispatchers: DispatchersProvider) : Vie
 
 	open fun isLoading(): MutableLiveData<Boolean> = _isLoading
 
+	fun store(): MutableLiveData<Long> = _store
+
 	open fun isEmptyList(): MutableLiveData<Boolean> = _isEmptyList
 
 	fun error(): MutableLiveData<Int> = _error
+
 }

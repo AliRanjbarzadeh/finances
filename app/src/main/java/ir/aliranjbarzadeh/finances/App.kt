@@ -1,13 +1,12 @@
 package ir.aliranjbarzadeh.finances
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.HiltAndroidApp
-import ir.aliranjbarzadeh.finances.base.Configs
-import ir.aliranjbarzadeh.finances.base.extensions.loadFromSp
 import ir.aliranjbarzadeh.finances.base.helpers.FontHelper
 import ir.aliranjbarzadeh.finances.base.helpers.LanguageHelper
-import ir.aliranjbarzadeh.finances.base.helpers.LocalHelper
+import ir.aliranjbarzadeh.finances.base.helpers.LocaleHelper
 
 @HiltAndroidApp
 class App : MultiDexApplication() {
@@ -17,6 +16,9 @@ class App : MultiDexApplication() {
 		initHawk()
 		initLanguage()
 		initFont()
+
+		//Disable dark mode
+		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 	}
 
 	private fun initHawk() {
@@ -24,7 +26,7 @@ class App : MultiDexApplication() {
 	}
 
 	private fun initLanguage() {
-		LocalHelper.setLocale(this, LanguageHelper.getLanguage())
+		LocaleHelper.setLocale(this, LanguageHelper.getLanguage())
 	}
 
 	private fun initFont() {

@@ -16,11 +16,15 @@ data class Card(
 	var updatedAt: Date,
 ) : Parcelable {
 	companion object {
-		fun emptyCard(isDefault: Boolean = false): Card {
+		fun emptyObject(isDefault: Boolean = false): Card {
 			val currentDate = DateTimeHelper.currentDateUTC()
 			return Card(
 				bankId = 0, name = "", isDefault = isDefault, createdAt = currentDate, updatedAt = currentDate
 			)
 		}
+	}
+
+	override fun toString(): String {
+		return "Card(id=$id, name='$name', balance=$balance)"
 	}
 }

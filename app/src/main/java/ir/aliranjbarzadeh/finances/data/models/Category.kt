@@ -12,4 +12,8 @@ data class Category(
 	var isDeletable: Boolean = true,
 	var createdAt: Date,
 	var updatedAt: Date,
-) : Parcelable
+) : Parcelable {
+	override fun toString(): String {
+		return "Category(id=$id, name='$name')"
+	}
+}

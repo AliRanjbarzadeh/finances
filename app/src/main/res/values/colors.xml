@@ -140,4 +140,7 @@
     <color name="md_theme_surfaceContainer_highContrast">#E9EFF0</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#E3E9EB</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#DEE3E5</color>
+    <color name="text_muted">#ACAEAF</color>
+    <color name="deposit">#75CF34</color>
+    <color name="withdraw">#C63131</color>
 </resources>

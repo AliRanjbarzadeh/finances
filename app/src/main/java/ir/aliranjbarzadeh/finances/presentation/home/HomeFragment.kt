@@ -1,10 +1,13 @@
 package ir.aliranjbarzadeh.finances.presentation.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import ir.aliranjbarzadeh.finances.R
@@ -14,21 +17,38 @@ import ir.aliranjbarzadeh.finances.data.models.Card
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.databinding.FragmentHomeBinding
 import ir.aliranjbarzadeh.finances.presentation.DeepLinks
+import ir.aliranjbarzadeh.finances.presentation.FragmentResults
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.string.home_menu, false) {
 
 	private val viewModel: HomeViewModel by viewModels()
+	private val transactionAdapter = TransactionAdapter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		setupObservers()
+
+		setFragmentResultListener(FragmentResults.Transaction.stored, ::initFragmentResultListener)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		setupUI()
+	}
+
+	override fun getMainView(): ViewGroup {
+		return binding.mainView
+	}
+
+	override fun initEmptyList(isEmptyList: Boolean) {
+		super.initEmptyList(isEmptyList)
+		binding.rvTransactions.isVisible = !isEmptyList
+	}
+
+	private fun setupUI() {
 		toggleBackButton(false)
 
 		if (!viewModel.isFirstRun) {
@@ -38,6 +58,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		binding.btnAddTransaction.setOnClickListener {
 			viewModel.fetchCards()
 		}
+
+		if (transactionAdapter.mItems.isNotEmpty()) {
+			setupAdapter()
+		}
 	}
 
 	private fun goToAddCard() {
@@ -45,7 +69,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 	}
 
 	private fun addTransaction() {
-		Toast.makeText(requireContext(), "go to add transaction", Toast.LENGTH_SHORT).show()
+		val action = HomeFragmentDirections.homeToTransactionAdd()
+		navToAction(action)
 	}
 
 	private fun showAddCardDialog() {
@@ -69,8 +94,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		}
 	}
 
-	private fun initLoading(isLoading: Boolean) {
-		toggleLoading(isLoading, binding.mainView)
+	private fun initFragmentResultListener(requestKey: String, bundle: Bundle) {
+		val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			bundle.getParcelable(FragmentResults.stored, Transaction::class.java)
+		} else {
+			@Suppress("DEPRECATION")
+			bundle.getParcelable(FragmentResults.stored)
+		}
+		logger.debug(result, "FRAGMENT_RESULT")
+
+		result?.also {
+			val isAdapterInitialized = transactionAdapter.mItems.isNotEmpty()
+			if (!isAdapterInitialized) {
+				viewModel.fetchTransactions()
+			} else {
+				transactionAdapter.mItems.add(0, result)
+				transactionAdapter.notifyItemInserted(0)
+			}
+		}
 	}
 
 	private fun initCards(cards: List<Card>) {
@@ -83,10 +124,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 
 	private fun initTransactions(transactions: List<Transaction>) {
 		logger.debug(transactions, "TRANSACTIONS")
+		transactionAdapter.mItems = transactions.toMutableList()
+		setupAdapter()
 	}
 
-	private fun initEmptyList(isEmptyList: Boolean) {
-		binding.rvTransactions.isVisible = !isEmptyList
-		binding.emptyList.root.isVisible = isEmptyList
+	private fun setupAdapter() {
+		logger.debug("Transaction adapter setup", "TRANSACTION_ADAPTER")
+		binding.rvTransactions.setHasFixedSize(true)
+		binding.rvTransactions.layoutManager = LinearLayoutManager(requireContext())
+		binding.rvTransactions.adapter = transactionAdapter
 	}
 }

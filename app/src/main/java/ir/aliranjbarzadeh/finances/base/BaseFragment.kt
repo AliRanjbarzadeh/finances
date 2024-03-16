@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.widget.NestedScrollView
@@ -16,11 +17,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.di.Logger
 import ir.aliranjbarzadeh.finances.databinding.LoadingBinding
+import ir.aliranjbarzadeh.finances.databinding.TemplateEmptyListBinding
 import javax.inject.Inject
 
 abstract class BaseFragment<VDB : ViewDataBinding>(
@@ -61,6 +64,37 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
 
 	protected open fun keyboardState(isShow: Boolean) {}
 
+	protected open fun getMainView(): ViewGroup? = null
+
+	protected fun initLoading(isLoading: Boolean) {
+		getMainView()?.also {
+			toggleLoading(isLoading, it)
+		}
+	}
+
+	protected open fun initEmptyList(isEmptyList: Boolean) {
+		getMainView()?.also {
+			if (isEmptyList) {
+				val emptyListBinding = TemplateEmptyListBinding.inflate(layoutInflater, it, false)
+				it.addView(emptyListBinding.root)
+			} else {
+				val emptyListView = it.findViewById<ConstraintLayout>(R.id.cl_empty_list)
+				it.removeView(emptyListView)
+			}
+		}
+	}
+
+	private fun toggleLoading(isShow: Boolean, parentView: ViewGroup) {
+		if (isShow) {
+			parentView.addView(loadingBinding.root)
+		} else {
+			try {
+				parentView.removeView(loadingBinding.root)
+			} catch (_: Exception) {
+			}
+		}
+	}
+
 	fun hideKeyboard() {
 		val imm = requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 		view?.also {
@@ -80,22 +114,12 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
 		nestedScrollView.scrollTo(0, 0)
 	}
 
-	fun toggleLoading(isShow: Boolean, parentView: ViewGroup) {
-		if (isShow) {
-			parentView.addView(loadingBinding.root)
-		} else {
-			try {
-				parentView.removeView(loadingBinding.root)
-			} catch (_: Exception) {
-			}
-		}
-	}
-
 	fun back() {
 		findNavController().popBackStack()
 	}
 
-	fun navToAction() {
+	fun navToAction(action: NavDirections) {
+		findNavController().navigate(action)
 	}
 
 	fun navToDeeplink(deepLink: String) {

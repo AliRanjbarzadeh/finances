@@ -13,6 +13,19 @@
         <action
             android:id="@+id/home_to_card_list"
             app:destination="@id/card_nav" />
+        <action
+            android:id="@+id/home_to_transaction_add"
+            app:destination="@id/transactionAddFragment" />
     </fragment>
     <include app:graph="@navigation/card_nav" />
+    <fragment
+        android:id="@+id/transactionAddFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.TransactionAddFragment"
+        android:label="TransactionAddFragment"
+        tools:layout="@layout/fragment_transaction_add">
+        <deepLink
+            android:id="@+id/deepLink2"
+            android:autoVerify="true"
+            app:uri="arfinances://transactions/add" />
+    </fragment>
 </navigation>

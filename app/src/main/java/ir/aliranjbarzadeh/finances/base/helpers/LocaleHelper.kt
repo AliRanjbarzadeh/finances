@@ -7,7 +7,12 @@ import ir.aliranjbarzadeh.finances.base.extensions.saveToSp
 import java.util.Locale
 
 
-object LocalHelper {
+object LocaleHelper {
+
+	fun getLocale(): Locale {
+		return Locale.getDefault()
+	}
+
 	fun onAttach(context: Context, language: String): Context {
 		return setLocale(context, language)
 	}

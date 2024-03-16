@@ -18,7 +18,6 @@ class CardAddViewModel @Inject constructor(
 	private val cardStoreUseCase: CardStoreUseCase,
 ) : BaseViewModel(dispatchersProvider) {
 	private val _banks: MutableLiveData<List<Bank>> = MutableLiveData()
-	private val _cardStore: MutableLiveData<Long> = MutableLiveData()
 
 	init {
 		fetchBanks()
@@ -35,7 +34,7 @@ class CardAddViewModel @Inject constructor(
 
 	fun banks(): MutableLiveData<List<Bank>> = _banks
 
-	fun store(card: Card) {
+	fun storeItem(card: Card) {
 		if (card.bankId <= 0) {
 			_error.postValue(R.string.select_bank_error)
 			return
@@ -47,10 +46,8 @@ class CardAddViewModel @Inject constructor(
 		execute {
 			_isLoading.postValue(true)
 			val result = cardStoreUseCase(card)
-			_cardStore.postValue(result)
+			_store.postValue(result)
 			_isLoading.postValue(false)
 		}
 	}
-
-	fun cardStore(): MutableLiveData<Long> = _cardStore
 }

@@ -3,6 +3,7 @@ package ir.aliranjbarzadeh.finances.presentation.profile.card
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
@@ -23,7 +24,7 @@ class CardAddFragment : BaseFragment<FragmentCardAddBinding>(R.layout.fragment_c
 	private val viewModel: CardAddViewModel by viewModels()
 
 	private lateinit var mBanks: List<Bank>
-	private val card = Card.emptyCard(true)
+	private val card = Card.emptyObject(true)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -49,7 +50,7 @@ class CardAddFragment : BaseFragment<FragmentCardAddBinding>(R.layout.fragment_c
 
 		binding.btnAddCard.setOnClickListener {
 			hideKeyboard()
-			viewModel.store(card)
+			viewModel.storeItem(card)
 		}
 	}
 
@@ -61,18 +62,15 @@ class CardAddFragment : BaseFragment<FragmentCardAddBinding>(R.layout.fragment_c
 		}
 	}
 
+	override fun getMainView(): ViewGroup = binding.mainView
+
 	private fun setupObservers() {
 		viewModel.run {
 			observe(isLoading(), ::initLoading)
 			observe(banks(), ::initBanks)
-			observe(cardStore(), ::initStore)
+			observe(store(), ::initStore)
 			observe(error(), ::initError)
 		}
-	}
-
-	private fun initLoading(isLoading: Boolean) {
-		logger.debug(isLoading, "CARD_ADD")
-		toggleLoading(isLoading, binding.mainView)
 	}
 
 	private fun initBanks(banks: List<Bank>) {

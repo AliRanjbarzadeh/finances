@@ -9,8 +9,11 @@ import ir.aliranjbarzadeh.finances.data.sources.local.models.CategoryModel
 
 @Dao
 interface CategoryDao {
-	@Query("SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY id DESC")
-	suspend fun list(): List<CategoryModel>
+	@Query("SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY id")
+	suspend fun all(): List<CategoryModel>
+
+	@Query("SELECT * FROM categories WHERE deleted_at IS NULL AND type = :type ORDER BY id")
+	suspend fun list(type: String): List<CategoryModel>
 
 	@Query("SELECT * FROM categories WHERE name = :categoryName LIMIT 1")
 	suspend fun findByName(categoryName: String): CategoryModel?

@@ -14,7 +14,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.di.Logger
 import ir.aliranjbarzadeh.finances.base.helpers.LanguageHelper
-import ir.aliranjbarzadeh.finances.base.helpers.LocalHelper
+import ir.aliranjbarzadeh.finances.base.helpers.LocaleHelper
 import javax.inject.Inject
 
 abstract class BaseActivity<VDB : ViewDataBinding>(@LayoutRes private val resId: Int, @IdRes private val baseNavHostId: Int) : AppCompatActivity() {
@@ -24,7 +24,7 @@ abstract class BaseActivity<VDB : ViewDataBinding>(@LayoutRes private val resId:
 	lateinit var logger: Logger
 
 	override fun attachBaseContext(newBase: Context) {
-		LocalHelper.onAttach(
+		LocaleHelper.onAttach(
 			context = newBase,
 			language = LanguageHelper.getLanguage()
 		)

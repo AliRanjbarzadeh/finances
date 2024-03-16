@@ -3,6 +3,7 @@ package ir.aliranjbarzadeh.finances.data.sources.local.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import ir.aliranjbarzadeh.finances.data.base.ResponseObject
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import java.util.Date
@@ -42,6 +43,7 @@ class TransactionModel(
 	@ColumnInfo(name = "deleted_at")
 	val deletedAt: Date? = null,
 ) : ResponseObject<Transaction> {
+
 
 	companion object {
 		fun fromModel(transaction: Transaction): TransactionModel = TransactionModel(

@@ -26,7 +26,7 @@
         <deepLink
             android:id="@+id/deepLink"
             android:autoVerify="true"
-            app:uri="arfinances:://card/add" />
+            app:uri="arfinances:://cards/add" />
     </fragment>
 
 </navigation>

@@ -21,6 +21,12 @@ class CardModel(
 	@ColumnInfo(name = "balance")
 	val balance: Long = 0,
 
+	@ColumnInfo(name = "deposit")
+	val deposit: Long = 0,
+
+	@ColumnInfo(name = "withdraw")
+	val withdraw: Long = 0,
+
 	@ColumnInfo(name = "is_default")
 	val isDefault: Boolean,
 
