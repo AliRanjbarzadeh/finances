@@ -12,8 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="@dimen/_4sdp"
-            tools:itemCount="3"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_60sdp"
+            tools:itemCount="4"
             tools:listitem="@layout/transaction_item" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

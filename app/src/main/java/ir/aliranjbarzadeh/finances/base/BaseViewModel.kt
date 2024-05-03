@@ -13,6 +13,7 @@ abstract class BaseViewModel(private val dispatchers: DispatchersProvider) : Vie
 	var isFirstRun: Boolean = true
 	open protected val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
 	open protected val _store: MutableLiveData<Long> = MutableLiveData()
+	open protected val _update: MutableLiveData<Int> = MutableLiveData()
 	open protected val _isEmptyList: MutableLiveData<Boolean> = MutableLiveData()
 	protected val _error: MutableLiveData<Int> = MutableLiveData()
 
@@ -26,6 +27,8 @@ abstract class BaseViewModel(private val dispatchers: DispatchersProvider) : Vie
 	open fun isLoading(): MutableLiveData<Boolean> = _isLoading
 
 	fun store(): MutableLiveData<Long> = _store
+
+	fun update(): MutableLiveData<Int> = _update
 
 	open fun isEmptyList(): MutableLiveData<Boolean> = _isEmptyList
 

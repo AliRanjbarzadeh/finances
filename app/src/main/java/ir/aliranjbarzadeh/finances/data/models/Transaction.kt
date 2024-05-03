@@ -2,6 +2,7 @@ package ir.aliranjbarzadeh.finances.data.models
 
 import android.os.Parcelable
 import ir.aliranjbarzadeh.finances.base.helpers.DateTimeHelper
+import ir.aliranjbarzadeh.finances.base.helpers.NumberHelper
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -32,6 +33,9 @@ data class Transaction(
 
 	val dateFormatted: String
 		get() = DateTimeHelper.formatDateTime(createdAt)
+
+	val isDeposit: Boolean
+		get() = type == "deposit"
 
 	override fun toString(): String {
 		return "Transaction(id=$id, cardId=$cardId, price=$price, type='$type', description='$description', createdAt=$createdAt, card=${card.toString()}, category=${category.toString()})"

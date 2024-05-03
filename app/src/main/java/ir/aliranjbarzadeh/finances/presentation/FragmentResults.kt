@@ -7,5 +7,6 @@ object FragmentResults {
 
 	object Transaction {
 		const val stored = "transaction.stored"
+		const val updated = "transaction.updated"
 	}
 }

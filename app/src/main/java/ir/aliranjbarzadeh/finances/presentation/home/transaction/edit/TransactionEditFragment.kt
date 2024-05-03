@@ -1,4 +1,4 @@
-package ir.aliranjbarzadeh.finances.presentation.home.transaction
+package ir.aliranjbarzadeh.finances.presentation.home.transaction.edit
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.BaseFragment
@@ -18,31 +19,38 @@ import ir.aliranjbarzadeh.finances.base.extensions.observe
 import ir.aliranjbarzadeh.finances.data.models.Card
 import ir.aliranjbarzadeh.finances.data.models.Category
 import ir.aliranjbarzadeh.finances.data.models.Transaction
-import ir.aliranjbarzadeh.finances.databinding.FragmentTransactionAddBinding
+import ir.aliranjbarzadeh.finances.databinding.FragmentTransactionEditBinding
 import ir.aliranjbarzadeh.finances.presentation.FragmentResults
 
 @AndroidEntryPoint
-class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.layout.fragment_transaction_add, R.string.add_transaction, true) {
+class TransactionEditFragment : BaseFragment<FragmentTransactionEditBinding>(R.layout.fragment_transaction_edit, R.string.edit_transaction, true) {
 
-	private val viewModel: TransactionAddViewModel by viewModels()
+	private val args: TransactionEditFragmentArgs by navArgs()
+	private val viewModel: TransactionEditViewModel by viewModels()
 
 	private lateinit var mCategories: List<Category>
 	private lateinit var mCards: List<Card>
-	private val transaction: Transaction = Transaction.emptyObject()
+	private lateinit var transaction: Transaction
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		//set transaction from args
+		transaction = args.transaction
+
 		setupObservers()
+
+		viewModel.fetchCategories(transaction.type)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
 		binding.btnAddTransaction.setOnClickListener {
-			viewModel.storeItem(transaction)
+			viewModel.updateItem(transaction)
 		}
 
+		binding.tbTransactionType.check(if (transaction.type == "deposit") R.id.btn_deposit else R.id.btn_withdraw)
 		binding.tbTransactionType.addOnButtonCheckedListener { _, checkedId, isChecked ->
 			if (isChecked) {
 				val transactionType = if (checkedId == R.id.btn_deposit) {
@@ -52,7 +60,6 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 				}
 
 				viewModel.fetchCategories(transactionType)
-				transaction.categoryId = 0
 				transaction.type = transactionType
 			}
 		}
@@ -69,6 +76,9 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 		binding.etDescription.doAfterTextChanged { text: Editable? ->
 			transaction.description = text.toString()
 		}
+
+		//set binding data
+		binding.item = transaction
 	}
 
 	override fun getMainView(): ViewGroup = binding.mainView
@@ -79,7 +89,7 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 			observe(categories(), ::initCategories)
 			observe(cards(), ::initCards)
 			observe(error(), ::initError)
-			observe(store(), ::initStore)
+			observe(update(), ::initUpdate)
 		}
 	}
 
@@ -90,6 +100,14 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 		mCategories = categories
 		val items = categories.map { it.name }.toTypedArray()
 		binding.actCategories.setSimpleItems(items)
+
+		categories.forEach { category ->
+			if (category.id == transaction.categoryId) {
+				binding.actCategories.setText(category.name, false)
+				//break loop
+				return@forEach
+			}
+		}
 	}
 
 	private fun initCards(cards: List<Card>) {
@@ -97,13 +115,11 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 		binding.actCards.setSimpleItems(items)
 		mCards = cards
 
-		if (cards.size == 1) {
-			cards.first().also { card ->
+		cards.forEach { card ->
+			if (card.id == transaction.cardId) {
 				binding.actCards.setText(card.name, false)
-				transaction.apply {
-					cardId = card.id
-					bankId = card.bankId
-				}
+				//break loop
+				return@forEach
 			}
 		}
 	}
@@ -112,11 +128,8 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 		Toast.makeText(requireContext(), getString(messageResId), Toast.LENGTH_SHORT).show()
 	}
 
-	private fun initStore(transactionId: Long) {
-		transaction.id = transactionId
-		transaction.category = mCategories.find { it.id == transaction.categoryId }
-		transaction.card = mCards.find { it.id == transaction.cardId }
-		setFragmentResult(FragmentResults.Transaction.stored, bundleOf(FragmentResults.stored to transaction))
+	private fun initUpdate(rowsAffected: Int) {
+		setFragmentResult(FragmentResults.Transaction.updated, bundleOf(FragmentResults.updated to transaction))
 		back()
 	}
 }

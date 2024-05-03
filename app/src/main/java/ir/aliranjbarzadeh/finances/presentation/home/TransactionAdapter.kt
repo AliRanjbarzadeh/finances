@@ -7,10 +7,14 @@ import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.BaseAdapter
 import ir.aliranjbarzadeh.finances.base.BaseHolder
 import ir.aliranjbarzadeh.finances.base.helpers.NumberHelper
+import ir.aliranjbarzadeh.finances.base.interfaces.util.RecyclerViewCallback
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.databinding.TransactionItemBinding
 
 class TransactionAdapter : BaseAdapter<Transaction>() {
+
+	lateinit var recyclerViewCallback: RecyclerViewCallback
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<Transaction> {
 		val binding = TransactionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 		val mContext = parent.context
@@ -26,6 +30,8 @@ class TransactionAdapter : BaseAdapter<Transaction>() {
 					ContextCompat.getColor(mContext, R.color.withdraw)
 				}
 				binding.vType.setBackgroundColor(bgColor)
+
+				binding.root.setOnClickListener { recyclerViewCallback.onItemClick(item, position, it) }
 
 				binding.executePendingBindings()
 			}

@@ -12,6 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.BaseFragment
+import ir.aliranjbarzadeh.finances.base.extensions.navTo
 import ir.aliranjbarzadeh.finances.base.extensions.observe
 import ir.aliranjbarzadeh.finances.data.models.Card
 import ir.aliranjbarzadeh.finances.data.models.Transaction
@@ -23,7 +24,9 @@ import ir.aliranjbarzadeh.finances.presentation.FragmentResults
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.string.home_menu, false) {
 
 	private val viewModel: HomeViewModel by viewModels()
-	private val transactionAdapter = TransactionAdapter()
+	private val transactionAdapter = TransactionAdapter().apply {
+		recyclerViewCallback = this@HomeFragment
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -48,6 +51,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		binding.rvTransactions.isVisible = !isEmptyList
 	}
 
+	override fun <T> onItemClick(item: T, position: Int, view: View) {
+		item as Transaction
+		logger.debug(item, "ITEM_CLICK")
+		val action = HomeFragmentDirections.toTransactionDetail(item)
+		navTo(action)
+	}
+
 	private fun setupUI() {
 		toggleBackButton(false)
 
@@ -65,12 +75,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 	}
 
 	private fun goToAddCard() {
-		navToDeeplink(DeepLinks.Card.add)
+		navTo(DeepLinks.Card.add)
 	}
 
 	private fun addTransaction() {
-		val action = HomeFragmentDirections.homeToTransactionAdd()
-		navToAction(action)
+		val action = HomeFragmentDirections.toTransactionAdd()
+		navTo(action)
 	}
 
 	private fun showAddCardDialog() {

@@ -9,23 +9,47 @@
         android:id="@+id/homeFragment"
         android:name="ir.aliranjbarzadeh.finances.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/home_to_card_list"
             app:destination="@id/card_nav" />
         <action
-            android:id="@+id/home_to_transaction_add"
+            android:id="@+id/to_transaction_add"
             app:destination="@id/transactionAddFragment" />
+        <action
+            android:id="@+id/to_transaction_detail"
+            app:destination="@id/transactionDetailBottomSheet" />
     </fragment>
     <include app:graph="@navigation/card_nav" />
     <fragment
         android:id="@+id/transactionAddFragment"
-        android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.TransactionAddFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.add.TransactionAddFragment"
         android:label="TransactionAddFragment"
         tools:layout="@layout/fragment_transaction_add">
         <deepLink
             android:id="@+id/deepLink2"
             android:autoVerify="true"
             app:uri="arfinances://transactions/add" />
+    </fragment>
+    <dialog
+        android:id="@+id/transactionDetailBottomSheet"
+        android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.TransactionDetailBottomSheet"
+        android:label="TransactionDetailBottomSheet"
+        tools:layout="@layout/bs_transaction_detail">
+        <argument
+            android:name="transaction"
+            app:argType="ir.aliranjbarzadeh.finances.data.models.Transaction" />
+        <action
+            android:id="@+id/to_transaction_edit"
+            app:destination="@id/transactionEditFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/transactionEditFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.edit.TransactionEditFragment"
+        android:label="TransactionEditFragment"
+        tools:layout="@layout/fragment_transaction_edit" >
+        <argument
+            android:name="transaction"
+            app:argType="ir.aliranjbarzadeh.finances.data.models.Transaction" />
     </fragment>
 </navigation>

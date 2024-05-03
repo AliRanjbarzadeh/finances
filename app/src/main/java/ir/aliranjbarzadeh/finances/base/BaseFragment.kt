@@ -11,17 +11,15 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.interfaces.util.RecyclerViewCallback
 import ir.aliranjbarzadeh.finances.databinding.LoadingBinding
 import ir.aliranjbarzadeh.finances.databinding.TemplateEmptyListBinding
 import javax.inject.Inject
@@ -30,7 +28,7 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
 	@LayoutRes private val resId: Int,
 	@StringRes private val titleResId: Int,
 	private val isShowBackButton: Boolean,
-) : Fragment() {
+) : Fragment(), RecyclerViewCallback {
 	lateinit var binding: VDB
 	private lateinit var loadingBinding: LoadingBinding
 
@@ -116,16 +114,5 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
 
 	fun back() {
 		findNavController().popBackStack()
-	}
-
-	fun navToAction(action: NavDirections) {
-		findNavController().navigate(action)
-	}
-
-	fun navToDeeplink(deepLink: String) {
-		val request = NavDeepLinkRequest.Builder
-			.fromUri(deepLink.toUri())
-			.build()
-		findNavController().navigate(request)
 	}
 }

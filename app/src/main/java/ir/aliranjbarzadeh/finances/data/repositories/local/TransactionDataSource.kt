@@ -21,7 +21,11 @@ class TransactionDataSource @Inject constructor(private val dao: TransactionDao,
 		return transactionId
 	}
 
-	override suspend fun update(transaction: Transaction): Int = dao.update(TransactionModel.fromModel(transaction))
+	override suspend fun update(transaction: Transaction): Int {
+		val rowsAffected = dao.update(TransactionModel.fromModel(transaction))
+		cardDao.updateBalances(transaction.cardId)
+		return rowsAffected
+	}
 
 	override suspend fun destroy(transaction: Transaction): Int = dao.destroy(transaction.id)
 }

@@ -1,4 +1,4 @@
-package ir.aliranjbarzadeh.finances.presentation.home.transaction
+package ir.aliranjbarzadeh.finances.presentation.home.transaction.edit
 
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,13 +10,13 @@ import ir.aliranjbarzadeh.finances.data.models.Category
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.domain.usecases.card.CardListUseCase
 import ir.aliranjbarzadeh.finances.domain.usecases.category.CategoryListUseCase
-import ir.aliranjbarzadeh.finances.domain.usecases.transaction.TransactionStoreUseCase
+import ir.aliranjbarzadeh.finances.domain.usecases.transaction.TransactionUpdateUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionAddViewModel @Inject constructor(
+class TransactionEditViewModel @Inject constructor(
 	private val dispatchersProvider: DispatchersProvider,
-	private val transactionStoreUseCase: TransactionStoreUseCase,
+	private val transactionUpdateUseCase: TransactionUpdateUseCase,
 	private val cardListUseCase: CardListUseCase,
 	private val categoryListUseCase: CategoryListUseCase,
 ) : BaseViewModel(dispatchersProvider) {
@@ -25,10 +25,9 @@ class TransactionAddViewModel @Inject constructor(
 
 	init {
 		fetchCards()
-		fetchCategories()
 	}
 
-	fun storeItem(transaction: Transaction) {
+	fun updateItem(transaction: Transaction) {
 		if (transaction.categoryId == 0L) {
 			_error.postValue(R.string.select_category_error)
 			return
@@ -51,8 +50,8 @@ class TransactionAddViewModel @Inject constructor(
 
 		execute {
 			_isLoading.postValue(true)
-			val result = transactionStoreUseCase(transaction)
-			_store.postValue(result)
+			val result = transactionUpdateUseCase(transaction)
+			_update.postValue(result)
 			_isLoading.postValue(false)
 		}
 	}

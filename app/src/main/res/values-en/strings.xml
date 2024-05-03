@@ -41,4 +41,8 @@
     <string name="sample_price">20,000 $</string>
     <string name="sample_card">Credit card</string>
     <string name="price_sign">$</string>
+    <string name="edit">Edit</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="edit_transaction">Edit transaction</string>
 </resources>

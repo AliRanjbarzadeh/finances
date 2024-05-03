@@ -40,4 +40,8 @@
     <string name="sample_price">20,000 تومان</string>
     <string name="sample_card">کارت بانکی</string>
     <string name="price_sign">تومان</string>
+    <string name="edit">ویرایش</string>
+    <string name="update">بروزرسانی</string>
+    <string name="delete">حذف</string>
+    <string name="edit_transaction">ویرایش تراکنش</string>
 </resources>
