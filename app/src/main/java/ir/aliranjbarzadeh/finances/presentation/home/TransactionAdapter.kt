@@ -10,6 +10,7 @@ import ir.aliranjbarzadeh.finances.base.helpers.NumberHelper
 import ir.aliranjbarzadeh.finances.base.interfaces.util.RecyclerViewCallback
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.databinding.TransactionItemBinding
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 class TransactionAdapter : BaseAdapter<Transaction>() {
 
@@ -24,7 +25,7 @@ class TransactionAdapter : BaseAdapter<Transaction>() {
 
 				binding.tPrice.text = NumberHelper.format(item.price, ContextCompat.getString(mContext, R.string.price_sign))
 
-				val bgColor = if (item.type == "deposit") {
+				val bgColor = if (item.type == TransactionType.DEPOSIT) {
 					ContextCompat.getColor(mContext, R.color.deposit)
 				} else {
 					ContextCompat.getColor(mContext, R.color.withdraw)

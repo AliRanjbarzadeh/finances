@@ -6,6 +6,7 @@ import ir.aliranjbarzadeh.finances.data.models.Category
 import ir.aliranjbarzadeh.finances.data.repositories.CategoryDataSource
 import ir.aliranjbarzadeh.finances.data.sources.local.daos.CategoryDao
 import ir.aliranjbarzadeh.finances.data.sources.local.models.CategoryModel
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -42,23 +43,23 @@ class CategoryDataSource @Inject constructor(private val dao: CategoryDao, priva
 		val currentCategories = dao.all()
 		val currentTime = Date()
 		categoriesWithdraw.forEach { categoryName ->
-			val currentCategory = currentCategories.filter { it.type == "withdraw" }.find { it.name == categoryName }
+			val currentCategory = currentCategories.filter { it.type == TransactionType.WITHDRAW }.find { it.name == categoryName }
 			if (currentCategory == null) {
-				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = "withdraw", isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
+				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = TransactionType.WITHDRAW, isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
 			}
 		}
 
 		categoriesDeposit.forEach { categoryName ->
-			val currentCategory = currentCategories.filter { it.type == "deposit" }.find { it.name == categoryName }
+			val currentCategory = currentCategories.filter { it.type == TransactionType.DEPOSIT }.find { it.name == categoryName }
 			if (currentCategory == null) {
-				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = "deposit", isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
+				dao.store(CategoryModel(name = categoryName.fixArabic().trim(), type = TransactionType.DEPOSIT, isDeletable = false, createdAt = currentTime, updatedAt = currentTime))
 			}
 		}
 
 		logger.debug("Category seeder done", "CATEGORY_SEEDER")
 	}
 
-	override suspend fun list(type: String): List<Category> {
+	override suspend fun list(type: TransactionType): List<Category> {
 		val items = dao.list(type)
 		return items.map { it.toDomain() }
 	}

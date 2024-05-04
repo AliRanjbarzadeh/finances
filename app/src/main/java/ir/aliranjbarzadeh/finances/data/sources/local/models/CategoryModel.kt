@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ir.aliranjbarzadeh.finances.data.base.ResponseObject
 import ir.aliranjbarzadeh.finances.data.models.Category
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import java.util.Date
 
 @Entity(tableName = "categories")
@@ -16,7 +17,7 @@ class CategoryModel(
 	val name: String,
 
 	@ColumnInfo(name = "type")
-	var type: String, // income outcome
+	var type: TransactionType,
 
 	@ColumnInfo(name = "is_deletable")
 	val isDeletable: Boolean,

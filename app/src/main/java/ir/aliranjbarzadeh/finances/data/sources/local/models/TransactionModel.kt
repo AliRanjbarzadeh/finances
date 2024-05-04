@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import ir.aliranjbarzadeh.finances.data.base.ResponseObject
 import ir.aliranjbarzadeh.finances.data.models.Transaction
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import java.util.Date
 
 @Entity(tableName = "transactions")
@@ -29,7 +30,7 @@ class TransactionModel(
 	val price: Long,
 
 	@ColumnInfo(name = "type")
-	val type: String,
+	val type: TransactionType,
 
 	@ColumnInfo(name = "description")
 	val description: String,

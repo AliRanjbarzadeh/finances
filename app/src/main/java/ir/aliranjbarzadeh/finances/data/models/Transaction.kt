@@ -3,6 +3,7 @@ package ir.aliranjbarzadeh.finances.data.models
 import android.os.Parcelable
 import ir.aliranjbarzadeh.finances.base.helpers.DateTimeHelper
 import ir.aliranjbarzadeh.finances.base.helpers.NumberHelper
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -14,7 +15,7 @@ data class Transaction(
 	var categoryId: Long,
 	var contactId: Long? = null,
 	var price: Long,
-	var type: String,
+	var type: TransactionType,
 	var description: String = "",
 	var createdAt: Date,
 	var updatedAt: Date,
@@ -26,7 +27,7 @@ data class Transaction(
 		fun emptyObject(): Transaction {
 			val currentDate = DateTimeHelper.currentDateUTC()
 			return Transaction(
-				bankId = 0, cardId = 0, categoryId = 0, price = 0, type = "deposit", createdAt = currentDate, updatedAt = currentDate
+				bankId = 0, cardId = 0, categoryId = 0, price = 0, type = TransactionType.DEPOSIT, createdAt = currentDate, updatedAt = currentDate
 			)
 		}
 	}
@@ -35,9 +36,9 @@ data class Transaction(
 		get() = DateTimeHelper.formatDateTime(createdAt)
 
 	val isDeposit: Boolean
-		get() = type == "deposit"
+		get() = type == TransactionType.DEPOSIT
 
 	override fun toString(): String {
-		return "Transaction(id=$id, cardId=$cardId, price=$price, type='$type', description='$description', createdAt=$createdAt, card=${card.toString()}, category=${category.toString()})"
+		return "Transaction(id=$id, cardId=$cardId, price=$price, type=$type, description='$description', createdAt=$createdAt, card=${card.toString()}, category=${category.toString()})"
 	}
 }

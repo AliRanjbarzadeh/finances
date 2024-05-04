@@ -1,4 +1,4 @@
-package ir.aliranjbarzadeh.finances.presentation.profile.card
+package ir.aliranjbarzadeh.finances.presentation.profile.card.add
 
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CardAddViewModel @Inject constructor(
-	private val dispatchersProvider: DispatchersProvider,
+	dispatchersProvider: DispatchersProvider,
 	private val bankListUseCase: BankListUseCase,
 	private val cardStoreUseCase: CardStoreUseCase,
 ) : BaseViewModel(dispatchersProvider) {

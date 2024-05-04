@@ -1,6 +1,7 @@
 package ir.aliranjbarzadeh.finances.data.models
 
 import android.os.Parcelable
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -8,10 +9,11 @@ import java.util.Date
 data class Category(
 	val id: Long = 0,
 	var name: String,
-	var type: String, // income outcome
+	var type: TransactionType,
 	var isDeletable: Boolean = true,
 	var createdAt: Date,
 	var updatedAt: Date,
+	var isSelected: Boolean = false,
 ) : Parcelable {
 	override fun toString(): String {
 		return "Category(id=$id, name='$name')"

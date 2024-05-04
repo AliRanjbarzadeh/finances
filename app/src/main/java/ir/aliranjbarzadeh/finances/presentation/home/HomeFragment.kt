@@ -1,12 +1,19 @@
 package ir.aliranjbarzadeh.finances.presentation.home
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,18 +22,20 @@ import ir.aliranjbarzadeh.finances.base.BaseFragment
 import ir.aliranjbarzadeh.finances.base.extensions.navTo
 import ir.aliranjbarzadeh.finances.base.extensions.observe
 import ir.aliranjbarzadeh.finances.data.models.Card
+import ir.aliranjbarzadeh.finances.data.models.Filter
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.databinding.FragmentHomeBinding
 import ir.aliranjbarzadeh.finances.presentation.DeepLinks
 import ir.aliranjbarzadeh.finances.presentation.FragmentResults
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.string.home_menu, false) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.string.home_menu, false), MenuProvider {
 
 	private val viewModel: HomeViewModel by viewModels()
 	private val transactionAdapter = TransactionAdapter().apply {
 		recyclerViewCallback = this@HomeFragment
 	}
+	private var filters = mutableListOf<Filter>()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -34,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		setupObservers()
 
 		setFragmentResultListener(FragmentResults.Transaction.stored, ::initFragmentResultListener)
+		setFragmentResultListener(FragmentResults.filters, ::initFragmentResultListener)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,8 +68,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		navTo(action)
 	}
 
+	override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+		menuInflater.inflate(R.menu.home_menu, menu)
+	}
+
+	override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+		return when (menuItem.itemId) {
+			R.id.menu_filter_transactions -> {
+				val action = HomeFragmentDirections.toFilter(filters.toTypedArray())
+				navTo(action)
+				true
+			}
+
+			else -> false
+		}
+	}
+
 	private fun setupUI() {
 		toggleBackButton(false)
+
+		val menuHost: MenuHost = requireActivity()
+		menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
 		if (!viewModel.isFirstRun) {
 			viewModel.updateView()
@@ -105,6 +134,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 	}
 
 	private fun initFragmentResultListener(requestKey: String, bundle: Bundle) {
+		when (requestKey) {
+			FragmentResults.Transaction.stored -> initTransactionResult(bundle)
+
+			FragmentResults.filters -> initFilterResult(bundle)
+		}
+	}
+
+	private fun initTransactionResult(bundle: Bundle) {
 		val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 			bundle.getParcelable(FragmentResults.stored, Transaction::class.java)
 		} else {
@@ -124,6 +161,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		}
 	}
 
+	private fun initFilterResult(bundle: Bundle) {
+		filters.clear()
+		val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			bundle.getParcelableArrayList(FragmentResults.filters, Filter::class.java)
+		} else {
+			@Suppress("DEPRECATION")
+			bundle.getParcelableArrayList(FragmentResults.filters)
+		}
+
+		result?.also {
+			filters.addAll(it)
+		}
+
+		viewModel.fetchTransactions(filters)
+	}
+
 	private fun initCards(cards: List<Card>) {
 		if (cards.isEmpty()) {
 			showAddCardDialog()
@@ -132,10 +185,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R
 		}
 	}
 
+	@SuppressLint("NotifyDataSetChanged")
 	private fun initTransactions(transactions: List<Transaction>) {
 		logger.debug(transactions, "TRANSACTIONS")
 		transactionAdapter.mItems = transactions.toMutableList()
-		setupAdapter()
+		if (binding.rvTransactions.adapter == null) {
+			setupAdapter()
+		} else {
+			transactionAdapter.notifyDataSetChanged()
+		}
 	}
 
 	private fun setupAdapter() {

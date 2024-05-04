@@ -44,4 +44,7 @@
     <string name="update">بروزرسانی</string>
     <string name="delete">حذف</string>
     <string name="edit_transaction">ویرایش تراکنش</string>
+    <string name="filter">فیلتر</string>
+    <string name="do_filter">فیلتر کردن</string>
+    <string name="remove_filter">حذف فیلتر</string>
 </resources>

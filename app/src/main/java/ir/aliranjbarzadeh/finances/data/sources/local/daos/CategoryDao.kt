@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import ir.aliranjbarzadeh.finances.data.sources.local.models.CategoryModel
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 @Dao
 interface CategoryDao {
@@ -13,7 +14,7 @@ interface CategoryDao {
 	suspend fun all(): List<CategoryModel>
 
 	@Query("SELECT * FROM categories WHERE deleted_at IS NULL AND type = :type ORDER BY id")
-	suspend fun list(type: String): List<CategoryModel>
+	suspend fun list(type: TransactionType): List<CategoryModel>
 
 	@Query("SELECT * FROM categories WHERE name = :categoryName LIMIT 1")
 	suspend fun findByName(categoryName: String): CategoryModel?

@@ -35,7 +35,7 @@ android {
 		applicationId = "ir.aliranjbarzadeh.finances"
 		minSdk = 24
 		targetSdk = 34
-		versionCode = 2
+		versionCode = 3
 		versionName = "1.0"
 		multiDexEnabled = true
 
@@ -65,9 +65,9 @@ android {
 }
 
 dependencies {
-	implementation("androidx.core:core-ktx:1.12.0")
+	implementation("androidx.core:core-ktx:1.13.1")
 	implementation("androidx.appcompat:appcompat:1.6.1")
-	implementation("com.google.android.material:material:1.11.0")
+	implementation("com.google.android.material:material:1.12.0")
 	implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 	implementation("androidx.viewpager2:viewpager2:1.0.0")
 
@@ -78,8 +78,8 @@ dependencies {
 	implementation("androidx.room:room-ktx:2.6.1")
 
 	// Network
-	implementation("com.squareup.retrofit2:retrofit:2.9.0")
-	implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+	implementation("com.squareup.retrofit2:retrofit:2.11.0")
+	implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 	implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 	// Coroutines
@@ -95,8 +95,8 @@ dependencies {
 	implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
 	// Hilt
-	implementation("com.google.dagger:hilt-android:2.51")
-	kapt("com.google.dagger:hilt-android-compiler:2.51")
+	implementation("com.google.dagger:hilt-android:2.51.1")
+	kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
 	// Calligraphy
 	implementation("io.github.inflationx:calligraphy3:3.1.1")
@@ -106,8 +106,8 @@ dependencies {
 	implementation("com.orhanobut:hawk:2.0.1")
 
 	// Sizes
-	implementation("com.intuit.ssp:ssp-android:1.1.0")
-	implementation("com.intuit.sdp:sdp-android:1.1.0")
+	implementation("com.intuit.ssp:ssp-android:1.1.1")
+	implementation("com.intuit.sdp:sdp-android:1.1.1")
 
 	// Lottie
 	implementation("com.airbnb.android:lottie:6.4.0")

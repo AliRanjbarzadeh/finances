@@ -19,6 +19,9 @@
         <action
             android:id="@+id/to_transaction_detail"
             app:destination="@id/transactionDetailBottomSheet" />
+        <action
+            android:id="@+id/to_filter"
+            app:destination="@id/filterFragment" />
     </fragment>
     <include app:graph="@navigation/card_nav" />
     <fragment
@@ -51,5 +54,16 @@
         <argument
             android:name="transaction"
             app:argType="ir.aliranjbarzadeh.finances.data.models.Transaction" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:name="ir.aliranjbarzadeh.finances.presentation.home.filter.FilterFragment"
+        android:label="FilterFragment" >
+        <argument
+            android:name="filters"
+            app:argType="ir.aliranjbarzadeh.finances.data.models.Filter[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

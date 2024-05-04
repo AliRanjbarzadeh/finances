@@ -14,6 +14,7 @@ data class Card(
 	var isDefault: Boolean,
 	var createdAt: Date,
 	var updatedAt: Date,
+	var isSelected: Boolean = false,
 ) : Parcelable {
 	companion object {
 		fun emptyObject(isDefault: Boolean = false): Card {

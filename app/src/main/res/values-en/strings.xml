@@ -45,4 +45,7 @@
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="edit_transaction">Edit transaction</string>
+    <string name="filter">Filter</string>
+    <string name="do_filter">Filter</string>
+    <string name="remove_filter">Remove filter</string>
 </resources>

@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/cardAddFragment"
-        android:name="ir.aliranjbarzadeh.finances.presentation.profile.card.CardAddFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.profile.card.add.CardAddFragment"
         android:label="CardAddFragment"
         tools:layout="@layout/fragment_card_add">
         <deepLink

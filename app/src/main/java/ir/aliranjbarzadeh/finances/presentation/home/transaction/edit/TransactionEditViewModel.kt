@@ -11,11 +11,12 @@ import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.domain.usecases.card.CardListUseCase
 import ir.aliranjbarzadeh.finances.domain.usecases.category.CategoryListUseCase
 import ir.aliranjbarzadeh.finances.domain.usecases.transaction.TransactionUpdateUseCase
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import javax.inject.Inject
 
 @HiltViewModel
 class TransactionEditViewModel @Inject constructor(
-	private val dispatchersProvider: DispatchersProvider,
+	dispatchersProvider: DispatchersProvider,
 	private val transactionUpdateUseCase: TransactionUpdateUseCase,
 	private val cardListUseCase: CardListUseCase,
 	private val categoryListUseCase: CategoryListUseCase,
@@ -65,7 +66,7 @@ class TransactionEditViewModel @Inject constructor(
 
 	fun cards(): MutableLiveData<List<Card>> = _cards
 
-	fun fetchCategories(type: String = "deposit") {
+	fun fetchCategories(type: TransactionType = TransactionType.DEPOSIT) {
 		execute {
 			val result = categoryListUseCase(type)
 			_categories.postValue(result)

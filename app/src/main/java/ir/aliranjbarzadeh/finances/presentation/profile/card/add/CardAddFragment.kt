@@ -1,4 +1,4 @@
-package ir.aliranjbarzadeh.finances.presentation.profile.card
+package ir.aliranjbarzadeh.finances.presentation.profile.card.add
 
 import android.os.Bundle
 import android.text.Editable

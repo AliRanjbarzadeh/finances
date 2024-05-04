@@ -2,22 +2,21 @@ package ir.aliranjbarzadeh.finances.presentation
 
 import android.graphics.Typeface
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ir.aliranjbarzadeh.finances.R
 import ir.aliranjbarzadeh.finances.base.BaseActivity
 import ir.aliranjbarzadeh.finances.base.extensions.changeFont
 import ir.aliranjbarzadeh.finances.base.extensions.observe
-import ir.aliranjbarzadeh.finances.base.extensions.setupWithNavigationController
 import ir.aliranjbarzadeh.finances.base.helpers.FontHelper
-import ir.aliranjbarzadeh.finances.base.interfaces.util.NavigationCallback
 import ir.aliranjbarzadeh.finances.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main, R.id.base_nav_host) {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 	private val viewModel: MainViewModel by viewModels()
 
@@ -36,6 +35,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main, R
 		viewModel.seedDatabase()
 	}
 
+	override fun onSupportNavigateUp(): Boolean {
+		return navController.navigateUp()
+	}
+
 	private fun setupObservers() {
 		viewModel.run {
 			observe(isLoading(), ::initLoading)
@@ -51,21 +54,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main, R
 			binding.bottomNavigation.changeFont(typeface)
 		}
 
-		val navGraphIds = listOf(
-			R.navigation.home_nav,
-			R.navigation.profile_nav,
-			R.navigation.setting_nav,
-		)
+		val navHostFragment = supportFragmentManager.findFragmentById(R.id.base_nav_host) as NavHostFragment
+		navController = navHostFragment.navController
 
-		val navCallbacks = listOf<NavigationCallback?>(null, null, null)
-
-		binding.bottomNavigation.setupWithNavigationController(
-			navGraphIds, navCallbacks,
-			supportFragmentManager,
-			R.id.base_nav_host,
-			intent
-		).observe(this) { mNavController: NavController ->
-			navController = mNavController
-		}
+		binding.bottomNavigation.setupWithNavController(navController)
 	}
 }

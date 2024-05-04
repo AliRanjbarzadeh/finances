@@ -20,6 +20,7 @@ import ir.aliranjbarzadeh.finances.data.models.Category
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.databinding.FragmentTransactionAddBinding
 import ir.aliranjbarzadeh.finances.presentation.FragmentResults
+import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 @AndroidEntryPoint
 class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.layout.fragment_transaction_add, R.string.add_transaction, true) {
@@ -46,9 +47,9 @@ class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.lay
 		binding.tbTransactionType.addOnButtonCheckedListener { _, checkedId, isChecked ->
 			if (isChecked) {
 				val transactionType = if (checkedId == R.id.btn_deposit) {
-					"deposit"
+					TransactionType.DEPOSIT
 				} else {
-					"withdraw"
+					TransactionType.WITHDRAW
 				}
 
 				viewModel.fetchCategories(transactionType)

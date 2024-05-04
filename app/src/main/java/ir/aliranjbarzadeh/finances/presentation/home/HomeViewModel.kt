@@ -6,6 +6,7 @@ import ir.aliranjbarzadeh.finances.base.BaseViewModel
 import ir.aliranjbarzadeh.finances.base.di.Logger
 import ir.aliranjbarzadeh.finances.base.dispatchers.DispatchersProvider
 import ir.aliranjbarzadeh.finances.data.models.Card
+import ir.aliranjbarzadeh.finances.data.models.Filter
 import ir.aliranjbarzadeh.finances.data.models.Transaction
 import ir.aliranjbarzadeh.finances.domain.usecases.card.CardListUseCase
 import ir.aliranjbarzadeh.finances.domain.usecases.transaction.TransactionListUseCase
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-	private val dispatchersProvider: DispatchersProvider,
+	dispatchersProvider: DispatchersProvider,
 	private val logger: Logger,
 	private val transactionListUseCase: TransactionListUseCase,
 	private val cardListUseCase: CardListUseCase,
@@ -26,10 +27,10 @@ class HomeViewModel @Inject constructor(
 		fetchTransactions()
 	}
 
-	fun fetchTransactions() {
+	fun fetchTransactions(filters: MutableList<Filter> = mutableListOf()) {
 		execute {
 			_isLoading.postValue(true)
-			val result = transactionListUseCase()
+			val result = transactionListUseCase(filters)
 			_transactions.postValue(result)
 			_isEmptyList.postValue(result.isEmpty())
 			_isLoading.postValue(false)
