@@ -29,7 +29,13 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
+//		LocaleHelper.setLocale(applicationContext, LanguageHelper.getLanguage())
 		super.onCreate(savedInstanceState)
 		binding = DataBindingUtil.setContentView(this, resId)
 	}
+
+//	override fun onResume() {
+//		LocaleHelper.setLocale(applicationContext, LanguageHelper.getLanguage())
+//		super.onResume()
+//	}
 }

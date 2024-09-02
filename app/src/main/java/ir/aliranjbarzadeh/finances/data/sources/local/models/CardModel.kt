@@ -57,6 +57,8 @@ class CardModel(
 		bankId = bankId,
 		name = name,
 		balance = balance,
+		deposit = deposit,
+		withdraw = withdraw,
 		isDefault = isDefault,
 		createdAt = createdAt,
 		updatedAt = updatedAt,

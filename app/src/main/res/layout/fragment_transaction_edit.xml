@@ -42,7 +42,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/deposit"
-                        app:icon="@drawable/baseline_keyboard_arrow_down_24"
+                        android:textColor="@color/md_theme_primary_mediumContrast"
+                        app:icon="@drawable/ic_keyboard_arrow_down"
                         app:iconTint="@color/md_theme_primary_mediumContrast" />
 
                     <com.google.android.material.button.MaterialButton
@@ -51,7 +52,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/withdraw"
-                        app:icon="@drawable/baseline_keyboard_arrow_up_24"
+                        android:textColor="@color/md_theme_error_mediumContrast"
+                        app:icon="@drawable/ic_keyboard_arrow_up"
                         app:iconTint="@color/md_theme_error_mediumContrast" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -125,13 +127,13 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_add_transaction"
+                    android:id="@+id/btn_edit_transaction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/update"
                     android:textSize="@dimen/_14ssp"
-                    app:icon="@drawable/baseline_update_24"
+                    app:icon="@drawable/ic_update"
                     app:iconGravity="textStart" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

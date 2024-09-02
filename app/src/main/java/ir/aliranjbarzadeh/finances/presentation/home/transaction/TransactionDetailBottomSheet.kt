@@ -2,7 +2,6 @@ package ir.aliranjbarzadeh.finances.presentation.home.transaction
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ir.aliranjbarzadeh.finances.R
@@ -23,7 +22,10 @@ class TransactionDetailBottomSheet : BaseBottomSheetDialogFragment<BsTransaction
 		binding.item = args.transaction
 
 		binding.btnEdit.setOnClickListener {
-			val action = TransactionDetailBottomSheetDirections.toTransactionEdit(args.transaction)
+			val action = TransactionDetailBottomSheetDirections.toTransactionEdit(
+				transaction = args.transaction,
+				adapterPosition = args.adapterPosition
+			)
 			navTo(action)
 		}
 	}

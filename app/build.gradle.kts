@@ -29,14 +29,14 @@ android {
 		}
 	}
 	namespace = "ir.aliranjbarzadeh.finances"
-	compileSdk = 34
+	compileSdk = 35
 
 	defaultConfig {
 		applicationId = "ir.aliranjbarzadeh.finances"
 		minSdk = 24
-		targetSdk = 34
-		versionCode = 3
-		versionName = "1.0"
+		targetSdk = 35
+		versionCode = 4
+		versionName = "1.0.4"
 		multiDexEnabled = true
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -66,13 +66,14 @@ android {
 
 dependencies {
 	implementation("androidx.core:core-ktx:1.13.1")
-	implementation("androidx.appcompat:appcompat:1.6.1")
+	implementation("androidx.appcompat:appcompat:1.7.0")
 	implementation("com.google.android.material:material:1.12.0")
 	implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-	implementation("androidx.viewpager2:viewpager2:1.0.0")
+	implementation("androidx.viewpager2:viewpager2:1.1.0")
 
 	// Room
 	implementation("androidx.room:room-runtime:2.6.1")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 	//noinspection KaptUsageInsteadOfKsp
 	kapt("androidx.room:room-compiler:2.6.1")
 	implementation("androidx.room:room-ktx:2.6.1")
@@ -83,8 +84,8 @@ dependencies {
 	implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 	// Coroutines
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 	implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
 	// Multidex
@@ -113,12 +114,11 @@ dependencies {
 	implementation("com.airbnb.android:lottie:6.4.0")
 
 	// Additional
-	implementation("com.github.samanzamani:PersianDate:1.7.1")
-	implementation("io.github.ParkSangGwon:tedkeyboardobserver:1.0.1")
 	implementation("androidx.core:core-splashscreen:1.0.1")
 	implementation("com.github.samanzamani:PersianDate:1.7.1")
+	implementation("io.github.ParkSangGwon:tedkeyboardobserver:1.0.1")
 
 	testImplementation("junit:junit:4.13.2")
-	androidTestImplementation("androidx.test.ext:junit:1.1.5")
-	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+	androidTestImplementation("androidx.test.ext:junit:1.2.1")
+	androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }

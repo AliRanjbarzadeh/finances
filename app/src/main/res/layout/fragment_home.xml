@@ -6,29 +6,5 @@
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_transactions"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingEnd="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_60sdp"
-            tools:itemCount="4"
-            tools:listitem="@layout/transaction_item" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_add_transaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/add_transaction"
-            app:icon="@drawable/baseline_add_24"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/_4sdp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

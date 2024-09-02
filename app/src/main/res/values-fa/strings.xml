@@ -1,0 +1,57 @@
+<resources>
+    <!--Fonts-->
+    <string name="font_regular">fonts/regular.ttf</string>
+    <string name="font_light">fonts/light.ttf</string>
+    <string name="font_bold">fonts/bold.ttf</string>
+
+    <!--Others-->
+    <string name="home_menu">خانه</string>
+    <string name="profile_menu">پروفایل</string>
+    <string name="setting_menu">تنظیمات</string>
+    <string name="under_construction">در دست ساخت</string>
+    <string name="transaction_add">تراکنش جدید</string>
+    <string name="nothing_found">موردی یافت نشد</string>
+    <string name="add_card">افزودن کارت</string>
+    <string name="cards">کارت ها</string>
+    <string name="need_card_description">برای شروع نیاز به ثبت کارت بانکی دارید، لطفا یک کارت ایجاد کرده و سپس تراکنش های خود را ثبت کنید.</string>
+    <string name="select_bank">انتخاب بانک</string>
+    <string name="card_name">نام کارت بانکی</string>
+    <string name="card_current_balance">موجودی فعلی (تومان)</string>
+    <string name="store">ذخیره</string>
+    <string name="select_bank_error">لطفا بانک را انتخاب کنید</string>
+    <string name="card_name_error">لطفا نام کارت بانکی را وارد کنید</string>
+    <string name="card_current_balance_error">لطفا موجودی فعلی را وارد کنید</string>
+    <string name="store_error">خطایی در ذخیره کردن رخ داده است، لطفا دوباره تلاش کنید</string>
+    <string name="store_success">با موفقیت ذخیره شد</string>
+    <string name="default_balance_value">0</string>
+    <string name="deposit">واریز</string>
+    <string name="withdraw">برداشت</string>
+    <string name="select_card">انتخاب کارت بانکی</string>
+    <string name="select_category">انتخاب دسته بندی</string>
+    <string name="amount">مبلغ (تومان)</string>
+    <string name="description">توضیحات</string>
+    <string name="select_card_error">لطفا کارت بانکی را انتخاب کنید</string>
+    <string name="select_category_error">لطفا دسته بندی را انتخاب کنید</string>
+    <string name="amount_error">لطفا مبلغ را وارد کنید</string>
+    <string name="amount_value_error">مقدار وارد شده باید بزرگتر از صفر باشد</string>
+    <string name="sample_date">1 فروردین 1403</string>
+    <string name="sample_date_time">1 فروردین 1403  12:00</string>
+    <string name="sample_price">20,000 تومان</string>
+    <string name="sample_card">کارت بانکی</string>
+    <string name="price_sign">تومان</string>
+    <string name="edit">ویرایش</string>
+    <string name="update">بروزرسانی</string>
+    <string name="delete">حذف</string>
+    <string name="transaction_edit">ویرایش تراکنش</string>
+    <string name="filter">فیلتر</string>
+    <string name="do_filter">فیلتر کردن</string>
+    <string name="remove_filter">حذف فیلتر</string>
+    <string name="transaction_list">تراکنش ها</string>
+    <string name="my_cards">کارت های من</string>
+    <string name="categories">دسته بندی ها</string>
+    <string name="entry_balance">موجودی اولیه: %s</string>
+    <string name="deposits_amount">واریزی ها: %s</string>
+    <string name="withdraws_amount">برداشت ها: %s</string>
+    <string name="created_at">تاریخ ایجاد: %s</string>
+    <string name="balance_amount">موجودی: %s</string>
+</resources>

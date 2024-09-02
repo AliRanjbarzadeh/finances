@@ -13,7 +13,8 @@ import javax.inject.Singleton
 
 @Singleton
 class TransactionDataSource @Inject constructor(private val dao: TransactionDao, private val cardDao: CardDao) : TransactionDataSource {
-	override suspend fun list(filters: MutableList<Filter>): List<Transaction> {
+
+	override suspend fun list(filters: MutableList<Filter>, limit: Int, offset: Int): List<Transaction> {
 		val query = StringBuilder("SELECT * FROM transactions WHERE deleted_at IS NULL")
 		filters.forEach {
 			when (it.type) {

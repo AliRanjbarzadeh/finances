@@ -82,7 +82,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/store"
                     android:textSize="@dimen/_14ssp"
-                    app:icon="@drawable/baseline_save_24"
+                    app:icon="@drawable/ic_save"
                     app:iconGravity="textStart" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -10,5 +10,5 @@ import javax.inject.Singleton
 class TransactionListUseCase @Inject constructor(
 	private val repository: TransactionRepository,
 ) {
-	suspend operator fun invoke(filters: MutableList<Filter>): List<Transaction> = repository.list(filters)
+	suspend operator fun invoke(filters: MutableList<Filter>, limit: Int = 30, offset: Int = 0): List<Transaction> = repository.list(filters, limit, offset)
 }

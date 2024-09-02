@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Logger @Inject constructor(val context: Context) {
+class Logger @Inject constructor(private val context: Context) {
 	fun error(msg: Any?, tag: String = "") {
 		if (PackageHelper.isDebuggable(context)) {
 			Log.e(tag, msg.toString())

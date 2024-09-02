@@ -24,7 +24,7 @@ import ir.aliranjbarzadeh.finances.presentation.FragmentResults
 import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 @AndroidEntryPoint
-class TransactionEditFragment : BaseFragment<FragmentTransactionEditBinding>(R.layout.fragment_transaction_edit, R.string.edit_transaction, true) {
+class TransactionEditFragment : BaseFragment<FragmentTransactionEditBinding>(R.layout.fragment_transaction_edit, R.string.transaction_edit, true) {
 
 	private val args: TransactionEditFragmentArgs by navArgs()
 	private val viewModel: TransactionEditViewModel by viewModels()
@@ -37,7 +37,7 @@ class TransactionEditFragment : BaseFragment<FragmentTransactionEditBinding>(R.l
 		super.onCreate(savedInstanceState)
 
 		//set transaction from args
-		transaction = args.transaction
+		transaction = args.transaction.copy()
 
 		setupObservers()
 
@@ -47,7 +47,7 @@ class TransactionEditFragment : BaseFragment<FragmentTransactionEditBinding>(R.l
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		binding.btnAddTransaction.setOnClickListener {
+		binding.btnEditTransaction.setOnClickListener {
 			viewModel.updateItem(transaction)
 		}
 
@@ -130,7 +130,12 @@ class TransactionEditFragment : BaseFragment<FragmentTransactionEditBinding>(R.l
 	}
 
 	private fun initUpdate(rowsAffected: Int) {
-		setFragmentResult(FragmentResults.Transaction.updated, bundleOf(FragmentResults.updated to transaction))
+		setFragmentResult(
+			FragmentResults.Transaction.updated, bundleOf(
+				FragmentResults.updated to transaction,
+				FragmentResults.adapterPosition to args.adapterPosition
+			)
+		)
 		back()
 	}
 }

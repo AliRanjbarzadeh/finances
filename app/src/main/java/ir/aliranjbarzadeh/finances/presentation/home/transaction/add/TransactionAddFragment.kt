@@ -23,7 +23,7 @@ import ir.aliranjbarzadeh.finances.presentation.FragmentResults
 import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 @AndroidEntryPoint
-class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.layout.fragment_transaction_add, R.string.add_transaction, true) {
+class TransactionAddFragment : BaseFragment<FragmentTransactionAddBinding>(R.layout.fragment_transaction_add, R.string.transaction_add, true) {
 
 	private val viewModel: TransactionAddViewModel by viewModels()
 

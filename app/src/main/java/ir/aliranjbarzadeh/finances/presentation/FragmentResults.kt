@@ -5,6 +5,7 @@ object FragmentResults {
 	const val updated = "UPDATED"
 	const val deleted = "DELETED"
 	const val filters = "FILTERS"
+	const val adapterPosition = "ADAPTER_POSITION"
 
 	object Transaction {
 		const val stored = "transaction.stored"

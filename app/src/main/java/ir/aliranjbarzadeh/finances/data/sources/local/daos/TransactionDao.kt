@@ -16,7 +16,7 @@ interface TransactionDao {
 	//	@Query("SELECT * FROM transactions WHERE deleted_at IS NULL ORDER BY id DESC")
 	@Transaction
 	@RawQuery
-	suspend fun list(query: SupportSQLiteQuery): List<TransactionWithRelation>
+	fun list(query: SupportSQLiteQuery): List<TransactionWithRelation>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	suspend fun store(transactionModel: TransactionModel): Long

@@ -3,26 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/transactionListFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="ir.aliranjbarzadeh.finances.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/home_to_card_list"
-            app:destination="@id/card_nav" />
-        <action
-            android:id="@+id/to_transaction_add"
-            app:destination="@id/transactionAddFragment" />
-        <action
-            android:id="@+id/to_transaction_detail"
-            app:destination="@id/transactionDetailBottomSheet" />
-        <action
-            android:id="@+id/to_filter"
-            app:destination="@id/filterFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <include app:graph="@navigation/card_nav" />
     <fragment
         android:id="@+id/transactionAddFragment"
@@ -44,26 +31,53 @@
             app:argType="ir.aliranjbarzadeh.finances.data.models.Transaction" />
         <action
             android:id="@+id/to_transaction_edit"
-            app:destination="@id/transactionEditFragment" />
+            app:destination="@id/transactionEditFragment"
+            app:popUpTo="@id/transactionListFragment" />
+        <argument
+            android:name="adapterPosition"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </dialog>
     <fragment
         android:id="@+id/transactionEditFragment"
         android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.edit.TransactionEditFragment"
         android:label="TransactionEditFragment"
-        tools:layout="@layout/fragment_transaction_edit" >
+        tools:layout="@layout/fragment_transaction_edit">
         <argument
             android:name="transaction"
             app:argType="ir.aliranjbarzadeh.finances.data.models.Transaction" />
+        <argument
+            android:name="adapterPosition"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/filterFragment"
-        tools:layout="@layout/fragment_filter"
         android:name="ir.aliranjbarzadeh.finances.presentation.home.filter.FilterFragment"
-        android:label="FilterFragment" >
+        android:label="FilterFragment"
+        tools:layout="@layout/fragment_filter">
         <argument
             android:name="filters"
+            android:defaultValue="@null"
             app:argType="ir.aliranjbarzadeh.finances.data.models.Filter[]"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionListFragment"
+        android:name="ir.aliranjbarzadeh.finances.presentation.home.transaction.TransactionListFragment"
+        android:label="TransactionListFragment"
+        tools:layout="@layout/fragment_transaction_list">
+        <action
+            android:id="@+id/to_card_list"
+            app:destination="@id/card_nav" />
+        <action
+            android:id="@+id/to_add"
+            app:destination="@id/transactionAddFragment" />
+        <action
+            android:id="@+id/to_detail"
+            app:destination="@id/transactionDetailBottomSheet" />
+        <action
+            android:id="@+id/to_filter"
+            app:destination="@id/filterFragment" />
     </fragment>
 </navigation>

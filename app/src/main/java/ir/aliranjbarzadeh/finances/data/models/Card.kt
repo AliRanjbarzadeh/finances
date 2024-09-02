@@ -11,6 +11,8 @@ data class Card(
 	var bankId: Long,
 	var name: String,
 	var balance: Long = 0,
+	var deposit: Long = 0,
+	var withdraw: Long = 0,
 	var isDefault: Boolean,
 	var createdAt: Date,
 	var updatedAt: Date,
@@ -25,7 +27,13 @@ data class Card(
 		}
 	}
 
+	val dateFormatted: String
+		get() = DateTimeHelper.formatDateTime(date = createdAt, persianFormat = "j F Y", englishFormat = "MMM F, yyyy")
+
+	val currentBalance: Long
+		get() = balance + deposit - withdraw
+
 	override fun toString(): String {
-		return "Card(id=$id, name='$name', balance=$balance)"
+		return "Card(id=$id, name='$name', balance=$balance, deposit=$deposit, withdraw=$withdraw)"
 	}
 }
