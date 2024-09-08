@@ -12,7 +12,7 @@ import ir.aliranjbarzadeh.finances.data.sources.local.models.CardModel
 import ir.aliranjbarzadeh.finances.data.sources.local.models.CategoryModel
 import ir.aliranjbarzadeh.finances.data.sources.local.models.TransactionModel
 
-@Database(entities = [CardModel::class, BankModel::class, CategoryModel::class, TransactionModel::class], version = 1, exportSchema = false)
+@Database(entities = [CardModel::class, BankModel::class, CategoryModel::class, TransactionModel::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
 	abstract val cardDao: CardDao

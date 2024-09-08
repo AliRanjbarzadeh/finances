@@ -32,10 +32,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 		item as ProfileBox.Item
 
 		when (item.type) {
-			"card" -> {
-				val action = ProfileFragmentDirections.profileToCardList()
-				navTo(action)
-			}
+			"card" -> navTo(ProfileFragmentDirections.profileToCardList())
+			"category" -> navTo(ProfileFragmentDirections.toCategories())
 		}
 	}
 

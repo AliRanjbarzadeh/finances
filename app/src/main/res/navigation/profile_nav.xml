@@ -13,6 +13,14 @@
         <action
             android:id="@+id/profile_to_card_list"
             app:destination="@id/card_nav" />
+        <action
+            android:id="@+id/to_categories"
+            app:destination="@id/categoryViewPagerFragment" />
     </fragment>
     <include app:graph="@navigation/card_nav" />
+    <fragment
+        android:id="@+id/categoryViewPagerFragment"
+        tools:layout="@layout/fragment_category_view_pager"
+        android:name="ir.aliranjbarzadeh.finances.presentation.profile.category.CategoryViewPagerFragment"
+        android:label="CategoryViewPagerFragment" />
 </navigation>

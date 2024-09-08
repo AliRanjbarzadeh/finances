@@ -11,6 +11,7 @@ data class Category(
 	var name: String,
 	var type: TransactionType,
 	var isDeletable: Boolean = true,
+	var priority: Int = 0,
 	var createdAt: Date,
 	var updatedAt: Date,
 	var isSelected: Boolean = false,

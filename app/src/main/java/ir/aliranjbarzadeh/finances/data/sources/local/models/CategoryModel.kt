@@ -16,6 +16,9 @@ class CategoryModel(
 	@ColumnInfo(name = "name")
 	val name: String,
 
+	@ColumnInfo(name = "priority")
+	val priority: Int = 0,
+
 	@ColumnInfo(name = "type")
 	var type: TransactionType,
 
@@ -38,6 +41,7 @@ class CategoryModel(
 			name = category.name,
 			type = category.type,
 			isDeletable = category.isDeletable,
+			priority = category.priority,
 			createdAt = category.createdAt,
 			updatedAt = category.updatedAt
 		)
@@ -48,6 +52,7 @@ class CategoryModel(
 		name = name,
 		type = type,
 		isDeletable = isDeletable,
+		priority = priority,
 		createdAt = createdAt,
 		updatedAt = updatedAt,
 	)

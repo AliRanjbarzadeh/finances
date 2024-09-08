@@ -33,8 +33,6 @@ class CardListFragment : BaseFragment<FragmentCardListBinding>(R.layout.fragment
 	}
 
 	private fun setupUI() {
-		toggleBackButton(false)
-
 		if (cardAdapter.mItems.isNotEmpty()) {
 			setupAdapter()
 		}

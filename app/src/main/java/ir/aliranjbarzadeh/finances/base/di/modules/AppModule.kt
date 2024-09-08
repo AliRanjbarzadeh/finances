@@ -3,6 +3,8 @@ package ir.aliranjbarzadeh.finances.base.di.modules
 import android.content.ContentResolver
 import android.content.Context
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -65,14 +67,23 @@ object AppModule {
 	@Singleton
 	fun providesLogger(@ApplicationContext appContext: Context): Logger = Logger(appContext)
 
+
+	/*==========================Database===============================*/
+	val MIGRATION_1_2 = object : Migration(1, 2) {
+		override fun migrate(db: SupportSQLiteDatabase) {
+			db.execSQL("ALTER TABLE categories ADD COLUMN priority INTEGER NOT NULL DEFAULT 0")
+		}
+	}
+
 	@Provides
 	@Singleton
 	fun providesDatabase(@ApplicationContext appContext: Context): Database = Room.databaseBuilder(
 		appContext, Database::class.java, Configs.database
 	).apply {
-		if (PackageHelper.isDebuggable(appContext)) {
-			fallbackToDestructiveMigration()
-		}
+//		if (PackageHelper.isDebuggable(appContext)) {
+//			fallbackToDestructiveMigration()
+//		}
+		addMigrations(MIGRATION_1_2)
 	}.build()
 
 }

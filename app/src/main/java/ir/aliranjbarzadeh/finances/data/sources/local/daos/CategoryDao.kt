@@ -10,10 +10,10 @@ import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 @Dao
 interface CategoryDao {
-	@Query("SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY id")
+	@Query("SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY is_deletable DESC, priority ASC")
 	suspend fun all(): List<CategoryModel>
 
-	@Query("SELECT * FROM categories WHERE deleted_at IS NULL AND type = :type ORDER BY id")
+	@Query("SELECT * FROM categories WHERE deleted_at IS NULL AND type = :type ORDER BY is_deletable DESC, priority ASC")
 	suspend fun list(type: TransactionType): List<CategoryModel>
 
 	@Query("SELECT * FROM categories WHERE name = :categoryName LIMIT 1")

@@ -2,7 +2,6 @@ package ir.aliranjbarzadeh.finances.presentation
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
@@ -59,5 +58,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 		navController = navHostFragment.navController
 
 		binding.bottomNavigation.setupWithNavController(navController)
+
+		binding.bottomNavigation.setOnItemReselectedListener { item ->
+			val currentDestinationId = navController.currentDestination?.id
+			if (currentDestinationId == null) {
+				return@setOnItemReselectedListener
+			}
+			when (item.itemId) {
+				R.id.home_nav -> {
+					if (currentDestinationId != R.id.transactionListFragment) {
+						navController.popBackStack(R.id.transactionListFragment, false)
+					}
+				}
+
+				R.id.profile_nav -> {
+					if (currentDestinationId != R.id.profileFragment) {
+						navController.popBackStack(R.id.profileFragment, false)
+					}
+				}
+			}
+		}
 	}
 }
