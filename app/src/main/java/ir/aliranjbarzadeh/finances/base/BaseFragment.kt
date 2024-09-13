@@ -16,10 +16,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.adivery.sdk.AdiveryListener
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import ir.aliranjbarzadeh.finances.R
-import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.interfaces.util.RecyclerViewCallback
+import ir.aliranjbarzadeh.finances.base.util.NetworkWatcher
 import ir.aliranjbarzadeh.finances.databinding.LoadingBinding
 import ir.aliranjbarzadeh.finances.databinding.TemplateEmptyListBinding
 import javax.inject.Inject
@@ -34,6 +36,9 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
 
 	@Inject
 	lateinit var logger: Logger
+
+	@Inject
+	lateinit var networkWatcher: NetworkWatcher
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		binding = DataBindingUtil.inflate(inflater, resId, container, false)

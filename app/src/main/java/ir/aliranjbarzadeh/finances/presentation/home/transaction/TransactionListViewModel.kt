@@ -3,7 +3,7 @@ package ir.aliranjbarzadeh.finances.presentation.home.transaction
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.aliranjbarzadeh.finances.base.BaseViewModel
-import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.dispatchers.DispatchersProvider
 import ir.aliranjbarzadeh.finances.data.models.Card
 import ir.aliranjbarzadeh.finances.data.models.Filter

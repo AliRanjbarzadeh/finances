@@ -34,7 +34,9 @@ class CategoryViewPagerFragment : BaseFragment<FragmentCategoryViewPagerBinding>
 
 
 	private fun setupUI() {
-		binding.vpCategories.adapter = categoryPagerAdapter
+		if (binding.vpCategories.adapter == null) {
+			binding.vpCategories.adapter = categoryPagerAdapter
+		}
 		binding.vpCategories.offscreenPageLimit = 2
 
 		TabLayoutMediator(binding.tlCategories, binding.vpCategories) { tab: TabLayout.Tab, position: Int ->

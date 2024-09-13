@@ -5,10 +5,10 @@ import ir.aliranjbarzadeh.finances.base.extensions.loadFromSp
 
 object LanguageHelper {
 	fun getLanguage(): String {
-		return loadFromSp(Configs.Sessions.language, Configs.Defaults.language)
+		return loadFromSp(Configs.Sessions.LANGUAGE, Configs.Defaults.LANGUAGE)
 	}
 
 	fun isDefault(language: String): Boolean {
-		return language == Configs.Defaults.language
+		return language == Configs.Defaults.LANGUAGE
 	}
 }

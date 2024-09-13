@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
-import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.helpers.LanguageHelper
 import ir.aliranjbarzadeh.finances.base.helpers.LocaleHelper
 import javax.inject.Inject

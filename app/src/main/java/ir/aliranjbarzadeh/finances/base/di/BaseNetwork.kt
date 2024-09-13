@@ -9,8 +9,8 @@ import javax.inject.Singleton
 @Singleton
 class BaseNetwork @Inject constructor(context: Context) {
 	val baseUrl: String = if (PackageHelper.isDebuggable(context)) {
-		Configs.Defaults.baseUrlDev
+		Configs.Defaults.BASE_URL_DEV
 	} else {
-		Configs.Defaults.baseUrl
+		Configs.Defaults.BASE_URL
 	}
 }

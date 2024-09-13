@@ -1,6 +1,6 @@
 package ir.aliranjbarzadeh.finances.data.repositories.local
 
-import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.extensions.fixArabic
 import ir.aliranjbarzadeh.finances.data.models.Category
 import ir.aliranjbarzadeh.finances.data.repositories.CategoryDataSource

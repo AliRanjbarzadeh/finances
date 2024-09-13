@@ -16,11 +16,10 @@ import ir.aliranjbarzadeh.finances.base.Configs
 import ir.aliranjbarzadeh.finances.base.di.BaseHttpClient
 import ir.aliranjbarzadeh.finances.base.di.BaseNetwork
 import ir.aliranjbarzadeh.finances.base.di.BaseRetrofit
-import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.dispatchers.DispatchersProvider
 import ir.aliranjbarzadeh.finances.base.dispatchers.DispatchersProviderImpl
 import ir.aliranjbarzadeh.finances.base.exceptions.NetworkExceptionHandler
-import ir.aliranjbarzadeh.finances.base.helpers.PackageHelper
 import ir.aliranjbarzadeh.finances.data.sources.local.Database
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -78,7 +77,7 @@ object AppModule {
 	@Provides
 	@Singleton
 	fun providesDatabase(@ApplicationContext appContext: Context): Database = Room.databaseBuilder(
-		appContext, Database::class.java, Configs.database
+		appContext, Database::class.java, Configs.DATABASE
 	).apply {
 //		if (PackageHelper.isDebuggable(appContext)) {
 //			fallbackToDestructiveMigration()

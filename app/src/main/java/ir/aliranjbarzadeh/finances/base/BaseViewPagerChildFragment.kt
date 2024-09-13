@@ -15,7 +15,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import ir.aliranjbarzadeh.finances.R
-import ir.aliranjbarzadeh.finances.base.di.Logger
+import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.interfaces.util.RecyclerViewCallback
 import ir.aliranjbarzadeh.finances.databinding.LoadingBinding
 import ir.aliranjbarzadeh.finances.databinding.TemplateEmptyListBinding

@@ -117,6 +117,7 @@ dependencies {
 	implementation("androidx.core:core-splashscreen:1.0.1")
 	implementation("com.github.samanzamani:PersianDate:1.7.1")
 	implementation("io.github.ParkSangGwon:tedkeyboardobserver:1.0.1")
+	implementation("com.adivery:sdk:4.6.5")
 
 	testImplementation("junit:junit:4.13.2")
 	androidTestImplementation("androidx.test.ext:junit:1.2.1")

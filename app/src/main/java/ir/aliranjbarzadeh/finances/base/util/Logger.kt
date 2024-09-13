@@ -1,4 +1,4 @@
-package ir.aliranjbarzadeh.finances.base.di
+package ir.aliranjbarzadeh.finances.base.util
 
 import android.content.Context
 import android.util.Log

@@ -1,9 +1,11 @@
 package ir.aliranjbarzadeh.finances.presentation.profile.category
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,16 +18,37 @@ import ir.aliranjbarzadeh.finances.databinding.FragmentCategoryListBinding
 import ir.aliranjbarzadeh.finances.presentation.TransactionType
 
 @AndroidEntryPoint
-class CategoryListFragment(private val transactionType: TransactionType) : BaseViewPagerChildFragment<FragmentCategoryListBinding>(
+class CategoryListFragment : BaseViewPagerChildFragment<FragmentCategoryListBinding>(
 	resId = R.layout.fragment_category_list
 ) {
 	private val viewModel: CategoryListViewModel by viewModels()
 	private val categoryAdapter = CategoryListAdapter(this)
+	private lateinit var transactionType: TransactionType
+
+	companion object {
+		fun newInstance(transactionType: TransactionType): CategoryListFragment {
+			val bundles = bundleOf("type" to transactionType)
+			return CategoryListFragment().apply {
+				arguments = bundles
+			}
+		}
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		setupObservers()
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			arguments?.getSerializable("type", TransactionType::class.java)?.also {
+				transactionType = it
+			}
+		} else {
+			@Suppress("DEPRECATION")
+			(arguments?.getSerializable("type") as TransactionType?)?.also {
+				transactionType = it
+			}
+		}
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

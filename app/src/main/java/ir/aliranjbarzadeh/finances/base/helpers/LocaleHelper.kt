@@ -18,7 +18,7 @@ object LocaleHelper {
 	}
 
 	fun setLocale(context: Context, language: String): Context {
-		saveToSp(Configs.Sessions.language, language)
+		saveToSp(Configs.Sessions.LANGUAGE, language)
 		return updateResources(context, language)
 	}
 
