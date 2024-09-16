@@ -32,7 +32,7 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
 	override fun onCreate(savedInstanceState: Bundle?) {
 //		LocaleHelper.setLocale(applicationContext, LanguageHelper.getLanguage())
 		super.onCreate(savedInstanceState)
-		Adivery.setLoggingEnabled(true)
+//		Adivery.setLoggingEnabled(true)
 		Adivery.configure(application, Configs.Adivery.TOKEN)
 		binding = DataBindingUtil.setContentView(this, resId)
 	}
