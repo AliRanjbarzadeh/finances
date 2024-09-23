@@ -11,6 +11,10 @@ object Configs {
 		}
 	}
 
+	object TAPSELL {
+		const val TOKEN = "oeonnqttqcqkpagopnjclerqacalgrrgknasqbspgimeagcbmtnknsklagtpdgjortqdij"
+	}
+
 	object Defaults {
 		const val LANGUAGE = "fa"
 		const val BASE_URL_DEV = ""

@@ -2,15 +2,20 @@ package ir.aliranjbarzadeh.finances.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.adivery.sdk.Adivery
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
-import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.helpers.LanguageHelper
 import ir.aliranjbarzadeh.finances.base.helpers.LocaleHelper
+import ir.aliranjbarzadeh.finances.base.helpers.PackageHelper
+import ir.aliranjbarzadeh.finances.base.util.Logger
+import ir.tapsell.plus.TapsellPlus
+import ir.tapsell.plus.TapsellPlusInitListener
+import ir.tapsell.plus.model.AdNetworkError
+import ir.tapsell.plus.model.AdNetworks
 import javax.inject.Inject
 
 abstract class BaseActivity<VDB : ViewDataBinding>(
@@ -32,9 +37,22 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
 	override fun onCreate(savedInstanceState: Bundle?) {
 //		LocaleHelper.setLocale(applicationContext, LanguageHelper.getLanguage())
 		super.onCreate(savedInstanceState)
-//		Adivery.setLoggingEnabled(true)
-		Adivery.configure(application, Configs.Adivery.TOKEN)
 		binding = DataBindingUtil.setContentView(this, resId)
+
+		if (PackageHelper.isDebuggable(this)) {
+			TapsellPlus.setDebugMode(Log.DEBUG)
+		}
+
+		TapsellPlus.initialize(this, Configs.TAPSELL.TOKEN, object : TapsellPlusInitListener {
+			override fun onInitializeSuccess(adNetworks: AdNetworks) {
+				logger.info("Tapsell initialized: ${adNetworks.name}")
+			}
+
+			override fun onInitializeFailed(adNetworks: AdNetworks, adNetworkError: AdNetworkError) {
+				logger.info("Tapsell initialize failed: ${adNetworks.name}, error is ${adNetworkError.errorMessage}")
+			}
+
+		})
 	}
 
 //	override fun onResume() {
