@@ -25,4 +25,8 @@ object DaoModule {
 	@Provides
 	@Singleton
 	fun providesTransactionDao(database: Database) = database.transactionDao
+
+	@Provides
+	@Singleton
+	fun providesGlobalDao(database: Database) = database.globalDao
 }

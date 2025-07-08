@@ -23,4 +23,7 @@ interface CardDao {
 
 	@Query("UPDATE cards SET deposit = (SELECT IFNULL(SUM(price), 0) FROM transactions WHERE card_id = :cardId AND type = 'deposit'), withdraw = (SELECT IFNULL(SUM(price), 0) FROM transactions WHERE card_id = :cardId AND type = 'withdraw') WHERE id = :cardId")
 	suspend fun updateBalances(cardId: Long)
+
+	@Query("DELETE FROM cards WHERE 1")
+	fun deleteAll()
 }

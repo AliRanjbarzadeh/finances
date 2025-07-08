@@ -14,19 +14,17 @@ object FontHelper {
 	const val LIGHT = "light.ttf"
 	const val BOLD = "bold.ttf"
 
-	fun setFont(context: Context, fontWeight: String = REGULAR) {
-		ViewPump.init(
-			ViewPump.builder()
-				.addInterceptor(
-					CalligraphyInterceptor(
-						CalligraphyConfig.Builder()
-							.setDefaultFontPath(getFontPath(context, fontWeight))
-							.setFontAttrId(R.attr.fontPath)
-							.build()
-					)
+	fun createViewPump(context: Context, fontWeight: String = REGULAR): ViewPump {
+		return ViewPump.builder()
+			.addInterceptor(
+				CalligraphyInterceptor(
+					CalligraphyConfig.Builder()
+						.setDefaultFontPath(getFontPath(context, fontWeight))
+						.setFontAttrId(R.attr.fontPath)
+						.build()
 				)
-				.build()
-		)
+			)
+			.build()
 	}
 
 	fun getTypeFace(context: Context, fontWeight: String = REGULAR): Typeface? {

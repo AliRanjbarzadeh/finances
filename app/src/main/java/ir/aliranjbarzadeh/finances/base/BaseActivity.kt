@@ -7,7 +7,9 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import ir.aliranjbarzadeh.finances.base.helpers.FontHelper
 import ir.aliranjbarzadeh.finances.base.helpers.LanguageHelper
 import ir.aliranjbarzadeh.finances.base.helpers.LocaleHelper
 import ir.aliranjbarzadeh.finances.base.helpers.PackageHelper
@@ -26,12 +28,16 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
 	@Inject
 	lateinit var logger: Logger
 
+	val viewPump: ViewPump by lazy {
+		FontHelper.createViewPump(this)
+	}
+
 	override fun attachBaseContext(newBase: Context) {
 		LocaleHelper.onAttach(
 			context = newBase,
 			language = LanguageHelper.getLanguage()
 		)
-		super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+		super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase, viewPump))
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {

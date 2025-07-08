@@ -2,7 +2,6 @@ package ir.aliranjbarzadeh.finances.data.models
 
 import android.os.Parcelable
 import ir.aliranjbarzadeh.finances.base.helpers.DateTimeHelper
-import ir.aliranjbarzadeh.finances.base.helpers.NumberHelper
 import ir.aliranjbarzadeh.finances.presentation.TransactionType
 import kotlinx.parcelize.Parcelize
 import java.util.Date
@@ -19,6 +18,7 @@ data class Transaction(
 	var description: String = "",
 	var createdAt: Date,
 	var updatedAt: Date,
+	var deletedAt: Date? = null,
 	var card: Card? = null,
 	var category: Category? = null,
 ) : Parcelable {

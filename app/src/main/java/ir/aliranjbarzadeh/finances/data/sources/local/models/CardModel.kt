@@ -2,12 +2,29 @@ package ir.aliranjbarzadeh.finances.data.sources.local.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import ir.aliranjbarzadeh.finances.data.base.ResponseObject
 import ir.aliranjbarzadeh.finances.data.models.Card
 import java.util.Date
 
-@Entity(tableName = "cards")
+@Entity(
+	tableName = "cards",
+	foreignKeys = [
+		ForeignKey(
+			entity = BankModel::class,
+			parentColumns = ["id"],
+			childColumns = ["bank_id"],
+			onDelete = ForeignKey.CASCADE,
+			onUpdate = ForeignKey.CASCADE,
+			deferred = true
+		)
+	],
+	indices = [
+		Index(value = ["bank_id"])
+	]
+)
 class CardModel(
 	@PrimaryKey(autoGenerate = true)
 	val id: Long = 0,

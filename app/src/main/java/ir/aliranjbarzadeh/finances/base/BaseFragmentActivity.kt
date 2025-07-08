@@ -6,7 +6,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
+import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import ir.aliranjbarzadeh.finances.base.helpers.FontHelper
 import ir.aliranjbarzadeh.finances.base.util.Logger
 import ir.aliranjbarzadeh.finances.base.helpers.LanguageHelper
 import ir.aliranjbarzadeh.finances.base.helpers.LocaleHelper
@@ -17,9 +19,13 @@ open class BaseFragmentActivity<VDB : ViewDataBinding>(@LayoutRes private val re
 	@Inject
 	lateinit var logger: Logger
 
+	val viewPump: ViewPump by lazy {
+		FontHelper.createViewPump(this)
+	}
+
 	override fun attachBaseContext(newBase: Context?) {
 		newBase?.also {
-			super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+			super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase, viewPump))
 			LocaleHelper.onAttach(
 				context = newBase,
 				language = LanguageHelper.getLanguage()

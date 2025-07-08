@@ -30,6 +30,6 @@ class App : MultiDexApplication() {
 	}
 
 	private fun initFont() {
-		FontHelper.setFont(this)
+		FontHelper.createViewPump(this)
 	}
 }

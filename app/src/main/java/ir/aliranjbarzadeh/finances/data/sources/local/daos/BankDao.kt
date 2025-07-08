@@ -18,9 +18,15 @@ interface BankDao {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	suspend fun store(bankModel: BankModel): Long
 
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun store2(bankModel: BankModel): Long
+
 	@Update(onConflict = OnConflictStrategy.IGNORE)
 	suspend fun update(bankModel: BankModel): Int
 
 	@Query("UPDATE banks SET deleted_at = DATE('now') WHERE id = :bankId")
 	suspend fun destroy(bankId: Long): Int
+
+	@Query("DELETE FROM banks WHERE 1")
+	fun deleteAll()
 }

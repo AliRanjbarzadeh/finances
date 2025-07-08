@@ -26,7 +26,14 @@ class TransactionDataSource @Inject constructor(private val dao: TransactionDao,
 			}
 		}
 		query.append(" ORDER BY id DESC")
-		val items = dao.list(SimpleSQLiteQuery(query.toString()));
+		val items = dao.list(SimpleSQLiteQuery(query.toString()))
+		return items.map { it.toDomain() }
+	}
+
+	override suspend fun all(): List<Transaction> {
+		val query = StringBuilder("SELECT * FROM transactions")
+		query.append(" ORDER BY id ASC")
+		val items = dao.list(SimpleSQLiteQuery(query.toString()))
 		return items.map { it.toDomain() }
 	}
 

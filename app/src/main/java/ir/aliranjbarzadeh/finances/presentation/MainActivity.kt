@@ -2,7 +2,9 @@ package ir.aliranjbarzadeh.finances.presentation
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -42,10 +44,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 	private fun setupObservers() {
 		viewModel.run {
 			observe(isLoading(), ::initLoading)
+			observe(store(), ::initStore)
+			observe(error(), ::initError)
+			observe(resetDB(), ::initResetDatabase)
 		}
 	}
 
-	private fun initLoading(isLoading: Boolean) {}
+	private fun initLoading(isLoading: Boolean) {
+	}
 
 
 	private fun setupBottomNavigation() {
@@ -78,5 +84,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 				}
 			}
 		}
+	}
+
+	private fun initStore(cardId: Long) {
+		logger.debug(cardId, "CARD_ADD")
+	}
+
+	private fun initError(@StringRes messageResId: Int) {
+		Toast.makeText(this, getString(messageResId), Toast.LENGTH_SHORT).show()
+		viewModel.resetDatabase()
+	}
+
+	private fun initResetDatabase(isReset: Boolean) {
+		logger.debug("Reset Database $isReset", "CARD_ADD")
+		Toast.makeText(this, "reset db is $isReset", Toast.LENGTH_SHORT).show()
 	}
 }

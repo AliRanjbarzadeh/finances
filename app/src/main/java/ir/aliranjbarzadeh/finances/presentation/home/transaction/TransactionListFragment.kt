@@ -158,7 +158,7 @@ class TransactionListFragment : BaseFragment<FragmentTransactionListBinding>(R.l
 			if (isUpdate) {
 				val adapterPosition = bundle.getInt(FragmentResults.adapterPosition, -1)
 				if (adapterPosition >= 0) {
-					transactionAdapter.mItems.set(adapterPosition, mTransaction)
+					transactionAdapter.mItems[adapterPosition] = mTransaction
 					transactionAdapter.notifyItemChanged(adapterPosition)
 				}
 			} else {
